@@ -167,9 +167,9 @@ Because your instance is only supposed to be accepting traffic from your Load Ba
 
 Additionally, you no longer need to specify SSH access - because all the configuration is done via your User Data. For your security group configuration, choose *Create a new security group* and specify the following:
 
- - Security Group: 
-   Type: HTTP
-   Source: your ELB
+ -  Type: HTTP
+
+ - Source: your ELB
 
 ### 23.) Launch your instance and go to Load Balancers
 
