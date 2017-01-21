@@ -134,5 +134,59 @@ So: now we have a Load Balancer, and an Artifact. What we can do now is make it 
 
 ### 18.) Create a second instance
 
-Go to *Services > EC2* in the web console. As with the first module, we're creating another instance.
+Go to *Services > EC2* in the web console. As with the first module, we're creating another instance. Click on Launch Instance.
+
+### 19.) Set instance details
+
+On Step 1, choose the *Amazon Linux AMI*. On the Instance Type, select *t2.micro*.
+
+### 20.) Set User Data
+
+You can think of *User Data* as scripts that you can run for your EC2 instance when it launches. We can use User Data to declare what we want to do - in this case, we're declaring the same commands that we used to install Wordpress the first time - except you don't have to login and do it manually anymore.
+
+On the *Advanced Details* tab of S3, paste the following into the *User Data* box:
+
+```
+#!/bin/bash
+yum install -y mysql php php-mysql httpd
+aws s3 cp s3://devopsgirls-training.firstname.lastname-wordpress.tgz /var/www/wordpress.tgz
+tar xvfz /var/www/wordpress.tgz /var/www/html/
+service httpd start
+```
+
+### 21.) Continue the instance configuration
+
+For the rest of the instance configuration, specify the following:
+
+ - Storage: Defaults
+ - Tags: Key:Name, Value: myname-wordpress2
+
+### 22.) Change the security group configuration
+
+Because your instance is only supposed to be accepting traffic from your Load Balancer, you can now specify your load balancer as a source. This means that you're making your instances more secure by narrowing down the kind of traffic it can receive.
+
+Additionally, you no longer need to specify SSH access - because all the configuration is done via your User Data. For your security group configuration, choose *Create a new security group* and specify the following:
+
+ - Security Group: 
+   Type: HTTP
+   Source: your ELB
+
+### 23.) Launch your instance and go to Load Balancers
+
+Click on *Launch instance* to launch your instance. Now, go back to the Load Balancer section ( *Services > EC2 > Load Balancers* ). Select the Load Balancer you created prior, then click on *Instances* on the lower pane.
+
+### 24.) Add your new instance to the Load Balancer
+
+Click on *Edit Instances*,  then add the new instance you just created (myname-wordpress-2). Click on *Save*.
+
+### 25.) Check that everything is working perfectly
+
+Go to the *Description* tab of your load balancer. If everything worked well, it should say "*2 of 2 instances in service*". You can test this by:
+
+ - Refresh your browser with the Wordpress window open
+
+ - In the AWS console (Services > EC2), right click on one of your instances and select *Stop Instance*.
+
+ - If everything worked well, then your site should still be up even if you refresh your browser.
+
 
