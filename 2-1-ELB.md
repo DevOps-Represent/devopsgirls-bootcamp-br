@@ -189,4 +189,8 @@ Go to the *Description* tab of your load balancer. If everything worked well, it
 
  - If everything worked well, then your site should still be up even if you refresh your browser.
 
+### 26.) And, done!
+
+Congratulations! You now have a more durable service configuration.
+
 
