@@ -126,8 +126,46 @@ You should be met with a section where you can review the changes that have occu
 
 
 
+## Testing your Autoscaling Group: Replacing Instances
+
+Now, everything should be ready! We have our *blueprint* for creating instances, and we have a *count* of instances to create, so let's see if it's working!
+
+### 17.) Check your Load Balancer again
+
+Go to *Services > EC2 > Load Balancers*. Select the Load Balancer you created previously (*myname-elb*), then look for the description.
+
+### 18.) Use the DNS Name to access your Load Balancer
+
+Copy the DNS name (similar to below), and paste it on another tab. You're effectively looking at any of your four instances.
+
+### 19.) Kill your instances
+
+Go to *Services > EC2 > Instances*. In the search box above, you should be able to type your name - allowing you to search any instances you tagged with your name.
+
+For all of your four instances, *Right-Click > Instance State > Terminate*.
+
+### 20.) Check your ELB
+
+Check the browser tab where you pasted your Load Balancer's DNS name. It should be return with a problem shortly.
+
+### 21.) Watch new instances get created
+
+In the AWS console, check under *Services > EC2 > Instances* every minute or so. What you should see is that eventually, new instances with your name should be created.
 
 
-## Testing your Autoscaling Group
+## Testing your Autoscaling Group: Resizing the number of instances
+
+Now that we know that your instances are getting automatically replaced, we can see what happens when we change the number of instances in your Autoscaling Group.
+
+### 22.) Modify your Autoscaling Group
+
+Go to *Services > EC2 > Autoscaling Group*. Look for the Autoscaling Group you created.
+
+Once you highlight the Autoscaling Group you created, go to the bottom panel and click on *Edit*. Set your *Desired Instances* to 3 and your *Max Instances* to 3. Click on *Save*.
+
+### 23.) Watch new instances get created
+
+In the AWS console, check under *Services > EC2 > Instances* every minute or so. What you should see is that eventually, new instances with your name should be created.
 
 
+Congratulations! You have an automated scaling service!
