@@ -83,7 +83,7 @@ Using your Terminal or Putty, go to the Wordpress directory, then remove the wp-
 
 ```
 cd /var/www/html/
-rm wp-config.php
+sudo rm wp-config.php
 ```
 
 ### 13.) Reinstall Wordpress
@@ -111,7 +111,7 @@ If the installation went well, then you're going to want to create a copy of you
 
 ```
 cd /var/www/html/
-tar cvfz ~/firstname.lastname-wordpress.tgz .
+sudo tar cvfz ~/firstname.lastname-wordpress.tgz .
 ```
 
 With this command, changing directories to */var/www/html* - where Wordpress is installed. Then, we create a compressed tar file - firstname.lastname-wordpress.tgz - containing the contents of our current directory (.)
@@ -121,7 +121,7 @@ With this command, changing directories to */var/www/html* - where Wordpress is 
 S3 is an object store - essentially allowing you to upload files to a directory that you can share either within the account, or to the world. We do this by running the following command:
 
 ```
-aws s3 ~/firstname.lastname-wordpress.tgz s3://devopsgirls-training/firstname.lastname-wordpress.tgz
+aws s3 cp ~/firstname.lastname-wordpress.tgz s3://devopsgirls-training/firstname.lastname-wordpress.tgz --no-sign-request
 ```
 
 ### 17.) Confirm the file exists using the web console:
@@ -150,7 +150,8 @@ On the *Advanced Details* tab of S3, paste the following into the *User Data* bo
 #!/bin/bash
 yum install -y mysql php php-mysql httpd
 aws s3 cp s3://devopsgirls-training.firstname.lastname-wordpress.tgz /var/www/wordpress.tgz
-tar xvfz /var/www/wordpress.tgz /var/www/html/
+tar xvfz /var/www/wordpress.tgz -C /var/www/html/
+chown -R apache /var/www/html/
 service httpd start
 ```
 
