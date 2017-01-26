@@ -30,21 +30,35 @@ In this practical session, we will:
 
 Go to Services > EC2, then look for "Load Balancers". Click on "Create Load Balancer"
 
+![Image][2-1-1-create]
+
+
 ### 2.) Select the type of load balancer
 
 In the next page, make sure you select *Classic Load Balancer*.
+
+![Image][2-1-2-classic]
+
 
 ### 3.) Name your ELB
 
 Put *myname*-elb under *Load Balancer Name*. Under *Create ELB Inside*, select *My Default VPC*.
 
+![Image][2-1-3-lbname]
+
+
 ### 4.) Set your load balancing protocol
 
 We'll leave the listener configuration intact for the time being - but do click on "Load Balancer Protocol". You should see a couple of options - load balancers are powerful!
 
+![Image][2-1-4-listeners]
+
+
 ### 5.) Create security groups for your ELB
 
 On the next page, choose the option "Create a new Security Group". Take note that it's similar to the security groups you made for your instance earlier - similar to a "firewall" where you can say what kind of traffic is allowed. 
+
+![Image][2-1-5-secgroups]
 
 We'll leave things default for now, except for "Source" - for which we'll choose "My IP".
 
@@ -54,23 +68,40 @@ We'll leave things default for now, except for "Source" - for which we'll choose
 
 On the next page, we'll be configuring our *health checks*. Health checks essentially verify if the instance is "healthy" - if it's accepting traffic, or it's not receiving errors. Have a look at the tooltips for each of the options.
 
+![Image][2-1-6-healthchecks]
+
+
 For now, we'll choose *TCP* as the Ping Protocol, using *80* as the Ping Port. What this is saying, is that the Load Balancer will check port 80 of any attached instances, and mark it as "healthy" if it responds without errors. 
+
+
 
 ### 8.) Set the instances to forward to
 
 On the instances page, we'll select the instance that you created in the previous module. This essentially means that we'll be forwarding any traffic that hits the load balancer to your instance.
 
+![Image][2-1-7-instances]
+
+
 ### 9.) Add tags
 
 As usual, tags. We'll put a Key of *Name* and a Value of *myname*-elb.
+
+![Image][2-1-8-tags]
+
 
 ### 10.) Finish up! 
 
 Review all the settings you've had, then click *Create*
 
+![Image][2-1-9-review]
+
+
 ### 11.) See your ELB details
 
 Click on the link that goes to your ELB. As with the instance, you'll see a pane that details the properties of your ELB. Make note of the *DNS Name*, marked below.
+
+![Image][2-1-10-details]
+
 
 
 ## Reinstall Wordpress using RDS
@@ -96,6 +127,11 @@ Database User: devopsgirls
 Database Password: devopsgirlsrds
 Database Prefix: firstname.lastname
 ```
+
+It should look like this:
+
+![Image][2-1-11-wpsql]
+
 
 Make sure you replace 'firstname.lastname' with your first name and last name. For example, 'Banana Smith' would have the database prefix of 'banana.smith'.
 
@@ -128,6 +164,9 @@ aws s3 cp ~/firstname.lastname-wordpress.tgz s3://devopsgirls-training/firstname
 
 Go to *Services > S3*. Click on the bucket called *devopsgirls-training*. If you uploaded your file correctly, then it should be there!
 
+![Image][2-1-12-s3]
+
+
 ## Create a second instance
 
 So: now we have a Load Balancer, and an Artifact. What we can do now is make it so that you have multiple instances, so that your service can still be up if one of the instances is down.
@@ -136,9 +175,15 @@ So: now we have a Load Balancer, and an Artifact. What we can do now is make it 
 
 Go to *Services > EC2* in the web console. As with the first module, we're creating another instance. Click on Launch Instance.
 
+![Image][2-1-13-launchinstance]
+
+
 ### 19.) Set instance details
 
 On Step 1, choose the *Amazon Linux AMI*. On the Instance Type, select *t2.micro*.
+
+![Image][2-1-14-ami]
+
 
 ### 20.) Set User Data
 
@@ -155,12 +200,24 @@ chown -R apache /var/www/html/
 service httpd start
 ```
 
+Your configuration should look like this:
+
+![Image][2-1-15-userdata]
+
+
 ### 21.) Continue the instance configuration
 
 For the rest of the instance configuration, specify the following:
 
+```
  - Storage: Defaults
- - Tags: Key:Name, Value: myname-wordpress2
+ - Tags: 
+     Key:Name
+     Value: myname-wordpress2
+```
+
+![Image][2-1-16-tags]
+
 
 ### 22.) Change the security group configuration
 
@@ -168,17 +225,29 @@ Because your instance is only supposed to be accepting traffic from your Load Ba
 
 Additionally, you no longer need to specify SSH access - because all the configuration is done via your User Data. For your security group configuration, choose *Create a new security group* and specify the following:
 
+```
  -  Type: HTTP
+ -  Source: your ELB
+```
 
- - Source: your ELB
+It should look like this:
+
+![Image][2-1-17-elbsg]
+
 
 ### 23.) Launch your instance and go to Load Balancers
 
 Click on *Launch instance* to launch your instance. Now, go back to the Load Balancer section ( *Services > EC2 > Load Balancers* ). Select the Load Balancer you created prior, then click on *Instances* on the lower pane.
 
+![Image][2-1-18-instances]
+
+
 ### 24.) Add your new instance to the Load Balancer
 
 Click on *Edit Instances*,  then add the new instance you just created (myname-wordpress-2). Click on *Save*.
+
+![Image][2-1-19-addinstance]
+
 
 ### 25.) Check that everything is working perfectly
 
@@ -192,6 +261,32 @@ Go to the *Description* tab of your load balancer. If everything worked well, it
 
 ### 26.) And, done!
 
+![Image][2-1-20-blog]
+
+
 Congratulations! You now have a more durable service configuration.
 
 
+
+
+
+[2-1-1-create]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-1-create.png
+[2-1-10-details]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-10-details.png
+[2-1-11-wpsql]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-11-wpsql.png
+[2-1-12-s3]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-12-s3.png
+[2-1-13-launchinstance]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-13-launchinstance.png
+[2-1-14-ami]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-14-ami.png
+[2-1-15-userdata]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-15-userdata.png
+[2-1-16-tags]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-16-tags.png
+[2-1-17-elbsg]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-17-elbsg.png
+[2-1-18-instances]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-18-instances.png
+[2-1-19-addinstance]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-19-addinstance.png
+[2-1-2-classic]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-2-classic.png
+[2-1-20-blog]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-20-blog.png
+[2-1-3-lbname]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-3-lbname.png
+[2-1-4-listeners]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-4-listeners.png
+[2-1-5-secgroups]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-5-secgroups.png
+[2-1-6-healthchecks]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-6-healthchecks.png
+[2-1-7-instances]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-7-instances.png
+[2-1-8-tags]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-8-tags.png
+[2-1-9-review]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/2-1-9-review.png
