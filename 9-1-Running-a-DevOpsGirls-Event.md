@@ -4,9 +4,39 @@
 
 ### Comms templates
 
+You will need to contact the attendees three times: 
+
+1.) The invite, covering the scope, the location, and the date of the program
+
+ - When is it happening?
+ - Where is it happening?
+ - What's being covered?
+ - Any dietary requirements?
+ - What your operating system of choice is
+ - Current AWS experience
+
+2.) A confirmation email + details of Slack Teams, Github Repos, and Login dates.
+
+ - A link to the Slack Team Signup
+ - A link to the Github Repo
+ - Confirmation link
+ - A link to the AWS Console login
+ - Wifi access details (if necessary)
+
+Comms templates are as follows:
+
 ```
-To be added
+[To be added]
 ```
+
+3.) A post-event email, containing well wishes, and new links:
+
+ - A survey containing questions for how the program was received
+ - Links to meetups, conferences
+ - Links to free educational material
+ - Details on how to signup for AWS Free Tier
+
+
 
 ## 1.) Establish roles:
 
@@ -31,6 +61,13 @@ To be added
  - An AWS account you'll need to setup
  - IAM users for every single attendee
 
+#### Materials / Facilities
+
+ - Emergency contact detail, so they can get in the premises
+ - Printout "My Name Is" sheets
+ - Printouts of one-time-login IAM passwords
+ - Microphones, speakers
+ - Power outlets
 
 # AWS Account Requirements
 
