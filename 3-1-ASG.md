@@ -8,8 +8,6 @@ Before we get started, here are a couple of loose concepts:
 
  - *Autoscaling Groups dictate how many instances you want to run.* It has many mechanisms for doing so - via manual intervention or system checks, but combined with Launch Configurations, you can automate the process of making instances.
 
- - *IAM Instance Profiles are machine users with limited permissions.* Think of it as a robot - it "impersonates" a person logging into your instance and doing things (in this case, installing Wordpress).
-
 Now that's out of the way, let's get started!
 
 ## What we're going to do
@@ -66,7 +64,7 @@ In the same panel, click on *Advanced Details*. In the *User Data* field, paste 
 ```
 #!/bin/bash
 yum install -y mysql php php-mysql httpd
-aws s3 cp s3://devopsgirls-training/firstname.lastname-wordpress.tgz /var/www/wordpress.tgz
+aws s3 cp s3://devopsgirls-training/firstname.lastname-wordpress.tgz /var/www/wordpress.tgz --no-sign-request
 tar xvfz /var/www/wordpress.tgz -C /var/www/html/
 chown -R apache /var/www/html
 service httpd start
