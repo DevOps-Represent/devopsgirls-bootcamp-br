@@ -25,6 +25,12 @@ To be added
  - Social channels, communication plan
  - Organize swag
 
+#### Miscellaneous needs
+
+ - A Slack team to invite all other attendees in
+ - An AWS account you'll need to setup
+ - IAM users for every single attendee
+
 
 # AWS Account Requirements
 
