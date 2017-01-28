@@ -36,6 +36,9 @@ In this practical session, we will:
 
 Go to Services > EC2, then look for *Launch Configurations* on the left-hand side. Click on *Create Launch Configuration*
 
+![Image][3-1-createlcfg]
+
+
 ### 2.) Set your Launch configuration size, and AMI
 
 We will configure your Launch Configuration in the same way we configure your instance - with the following parameters:
@@ -45,12 +48,14 @@ We will configure your Launch Configuration in the same way we configure your in
  - Instance Type: t2.micro
 ```
 
+![Image][3-1-2-instancetype]
+
+
 ### 3.) Configure Launch Configuration details
 
 We'll then set your Launch Configuration details. Name your Launch Config *myname-launchconfig*, then select the "DevOpsGirls-S3-Wordpress" IAM Role.
 
-
-[image]
+![Image][3-1-3-iamrole]
 
 Note that this IAM role only allows read-only access to the contents of the S3 bucket you've placed your Wordpress package in - and nothing else. 
 
@@ -63,26 +68,43 @@ In the same panel, click on *Advanced Details*. In the *User Data* field, paste 
 yum install -y mysql php php-mysql httpd
 aws s3 cp s3://devopsgirls-training/firstname.lastname-wordpress.tgz /var/www/wordpress.tgz
 tar xvfz /var/www/wordpress.tgz -C /var/www/html/
+chown -R apache /var/www/html
 service httpd start
 ```
+
+**Make sure** you change `firstname.lastname-wordpress.tgz` to your name, or the filename of the Wordpress package you sent over.
+
+![Image][3-1-4-userdata]
+
 
 ### 5.) Disable public IP addresses
 
 In the same panel, select *Do not assign public IP*. This is an important security measure, and separates the instances from the public web - all interaction is via your Load Balancer.
 
+Go to the next page afterwards.
+
 ### 6.) Set storage
 
 We don't need to modify the storage, so we'll leave everything in *Add Storage* as default for now.
 
+![Image][3-1-5-storage]
+
+
 ### 7.) Security Groups
 
 We'll do the same thing that we did with your previous EC2 instance. In *Protocol*, select *HTTP* - then set *Source* to *"Custom IP"*. If you type out the name of the Load Balancer you created earlier, it should show up on the list.
+
+![Image][3-1-6-secgroups]
+
 
 The good thing about this is that for any instances we're creating, we're only ever expecting HTTP traffic *only from your Load Balancer*. This is a good thing.
 
 ### 8.) Verify your configuration, select the SSH KeyPair
 
 We'll finish up with a review of your Launch Configuration. Check that everything is valid, then click on *Create Launch Configuration*
+
+![Image][3-1-7-reviewlc]
+
 
 As with creating EC2 instances, this will ask you to specify a Key Pair. Specify the one you created earlier.
 
@@ -92,13 +114,22 @@ As with creating EC2 instances, this will ask you to specify a Key Pair. Specify
 
 Once you click *Create Launch Configuration*, you should see another button called *Create an Autoscaling Group using this Launch Configuration*. Click on it.
 
+![Image][3-1-8-createsgh]
+
+
 ### 10.) Set Autoscaling Group details
 
 In the next panel, specify the GroupPame as *myname-asg*. Set Group Size to *2* instances.
 
+![Image][3-1-9-asgname]
+
+
 ### 11.) Select Network and Subnets
 
 For this exercise, we'll use the VPC marked *default*. If you click on the *Subnet* input box, you should be given two to three subnets to choose from. Select *all of them* as destinations.
+
+![Image][3-1-10-subnets]
+
 
 Subnets essentially set which Availability Zones to deply your instances under. Think of Availability Zones as datacenters - separate locations in Sydney where your instance will live. You'll want a good spread - this protects your service from outages if say, a datacenter in one Sydney location goes down.
 
@@ -106,9 +137,13 @@ Subnets essentially set which Availability Zones to deply your instances under. 
 
 If you click on *Advanced Details* under the same pane, you should see a tickbox called *Load Balancing*. This allows you to register the server as *live* and attaches it to the Load Balancer you created earlier.
 
+![Image][3-1-11-elb]
+
+
 An additional set of options should appear. If you click on the input box for *Classic Load Balancers*, you should be able to select the Load Balancer you created earlier.
 
 ### 13.) Keep scaling policies default
+
 
 We're not going to be playing with Scaling Policies for the time being - so choose *Keep this group at its initial size*. Just keep in mind that you can use policies to watch for the CPU or memory use of your instances - so for example, if the CPU ever goes over 70% usage, you can choose to add more instances automatically.
 
@@ -120,9 +155,14 @@ We'll choose not to send notifications at this time. Think of this as a way of n
 
 As with anything that we do, it's iportant to tag our to-be-created instances as soon as they're created. Set a Key of *Name*, and set the Value to your name.
 
+![Image][3-1-12-tags]
+
+
 ### 16.) Review, and finish up!
 
 You should be met with a section where you can review the changes that have occurred. Click *Create Auto Scaling Group* once you're ready, and it should kick things off.
+
+![Image][3-1-13-review]
 
 
 
@@ -133,6 +173,9 @@ Now, everything should be ready! We have our *blueprint* for creating instances,
 ### 17.) Check your Load Balancer again
 
 Go to *Services > EC2 > Load Balancers*. Select the Load Balancer you created previously (*myname-elb*), then look for the description.
+
+![Image][3-1-14-elbinstances]
+
 
 ### 18.) Use the DNS Name to access your Load Balancer
 
@@ -169,3 +212,20 @@ In the AWS console, check under *Services > EC2 > Instances* every minute or so.
 
 
 Congratulations! You have an automated scaling service!
+
+
+[3-1-10-subnets]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/3-1-10-subnets.png
+[3-1-11-elb]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/3-1-11-elb.png
+[3-1-12-tags]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/3-1-12-tags.png
+[3-1-13-review]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/3-1-13-review.png
+[3-1-14-elbinstances]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/3-1-14-elbinstances.png
+[3-1-2-instancetype]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/3-1-2-instancetype.png
+[3-1-3-iamrole]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/3-1-3-iamrole.png
+[3-1-4-userdata]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/3-1-4-userdata.png
+[3-1-5-storage]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/3-1-5-storage.png
+[3-1-6-secgroups]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/3-1-6-secgroups.png
+[3-1-7-reviewlc]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/3-1-7-reviewlc.png
+[3-1-8-createsgh]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/3-1-8-createsgh.png
+[3-1-9-asgname]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/3-1-9-asgname.png
+[3-1-ASG]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/3-1-ASG.png
+[3-1-createlcfg]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/2-1-ELB/3-1-createlcfg.png
