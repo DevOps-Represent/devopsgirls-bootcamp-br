@@ -15,21 +15,113 @@ To be added
 #### Things to organize on the way:
 
  - Establish timeline. When is the event happening?
-
  - Pick invitation mechanism: Eventbrite, Meetup
-
  - Coaches and presenters. Which companies/people can help you on the day?
+ - Communication plan. You'll want to contact attendees regarding the event. 
 
 #### Things to organize for the day:
 
  - Organize catering, and coffee
-
  - Social channels, communication plan
-
  - Organize swag
 
 
-### Trainers:
+# AWS Account Requirements
 
+There are a few things you need to do to prepare an AWS account for this training.
 
+## Create RDS Instance
 
+You'll need to create an RDS instance in advance, with the following details:
+
+Database Name: devopsgirlsdb
+Database User: devopsgirls
+Database Password: devopsgirlsrds!
+
+*The instance should have "Publically acessible" set to disabled.*
+
+## Security Group Setup 
+
+Go to the RDS instance, then go to *Instance Actions*. Select *See Instance Details*. 
+
+In the next window, you should be able to see the security group that the RDS instance is running on. Make sure it allows access from your VPC subnet - default is `172.31.0.0/16`. Parameters as follows:
+
+```
+Protocol: TCP
+Port: 3306
+Source: 172.31.0.0/16
+```
+
+## Create Internal DNS Hosted Zone (Route 53)
+
+You'll need to create a Private Hosted Zone for Route 53. Go to *Services > Route 53*, then click on *Create Hosted Zone*. You'll want to set the following:
+
+```
+Domain Name: devopsgirls.internal
+VPC: [Your Default VPC]
+```
+
+## Create a *devopsgirls-training* S3 Bucket
+
+You're going to want to create an S3 bucket as well. Go to *Services > S3*, then create a new bucket called `devopsgirls-training`. In the bucket, select *Properties*, then go to *Permissions*. Select *Add Bucket Policy* and put the following in:
+
+```
+{
+	"Version": "2008-10-17",
+	"Id": "1",
+	"Statement": [
+		{
+			"Sid": "VPC Only access",
+			"Effect": "Allow",
+			"Principal": {
+				"AWS": "*"
+			},
+			"Action": [
+				"s3:GetObject",
+				"s3:PutObject"
+			],
+			"Resource": [
+				"arn:aws:s3:::devopsgirls-training",
+				"arn:aws:s3:::devopsgirls-training/*"
+			],
+			"Condition": {
+				"StringEquals": {
+					"aws:sourceVpc": "vpc-cad8d0a8"
+				}
+			}
+		}
+	]
+}
+```
+
+## Create an S3 VPC Endpoint
+
+You're going to want to make the S3 endpoint internal only. Do the following:
+
+1.) Go to Services > VPC > Endpoints
+
+2.) Select *Create Endpoint*
+
+3.) In the Endpoint configuration, set the following:
+
+```
+VPC: [your default VPC]
+Service: com.amazonaws.ap-southeast-2.s3
+Policy:
+
+{
+    "Statement": [
+        {
+            "Action": "*",
+            "Effect": "Allow",
+            "Resource": "*",
+            "Principal": "*"
+        }
+    ]
+}
+
+```
+
+4.) In the route table selection, select all the Route Tables displayed.
+
+After this, the environment should be ready.
