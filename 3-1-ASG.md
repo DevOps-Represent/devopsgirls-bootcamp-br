@@ -18,8 +18,6 @@ In this practical session, we will:
 
  - Specify UserData as we did with EC2 earlier
 
- - Attach it to a limited InstanceProfile
-
  - Create an Autoscaling Group
 
  - Configure Autoscaling group so it attaches instances to the ELB
@@ -51,7 +49,7 @@ We will configure your Launch Configuration in the same way we configure your in
 
 ### 3.) Configure Launch Configuration details
 
-We'll then set your Launch Configuration details. Name your Launch Config *myname-launchconfig*, then select the "DevOpsGirls-S3-Wordpress" IAM Role.
+We'll then set your Launch Configuration details. Name your Launch Config *myname-launchconfig*.
 
 ![Image][3-1-3-iamrole]
 
@@ -179,19 +177,29 @@ Go to *Services > EC2 > Load Balancers*. Select the Load Balancer you created pr
 
 Copy the DNS name (similar to below), and paste it on another tab. You're effectively looking at any of your four instances.
 
+![Image][3-1-15-accesslb]
+
+
 ### 19.) Kill your instances
 
 Go to *Services > EC2 > Instances*. In the search box above, you should be able to type your name - allowing you to search any instances you tagged with your name.
 
 For all of your four instances, *Right-Click > Instance State > Terminate*.
 
+![Image][3-1-16-killec2]
+
+
 ### 20.) Check your ELB
 
 Check the browser tab where you pasted your Load Balancer's DNS name. It should be return with a problem shortly.
 
+
 ### 21.) Watch new instances get created
 
 In the AWS console, check under *Services > EC2 > Instances* every minute or so. What you should see is that eventually, new instances with your name should be created.
+
+![Image][3-1-17-instancereplace]
+
 
 
 ## Testing your Autoscaling Group: Resizing the number of instances
@@ -203,6 +211,9 @@ Now that we know that your instances are getting automatically replaced, we can 
 Go to *Services > EC2 > Autoscaling Group*. Look for the Autoscaling Group you created.
 
 Once you highlight the Autoscaling Group you created, go to the bottom panel and click on *Edit*. Set your *Desired Instances* to 3 and your *Max Instances* to 3. Click on *Save*.
+
+![Image][3-1-18-setasg]
+
 
 ### 23.) Watch new instances get created
 
@@ -217,6 +228,10 @@ Congratulations! You have an automated scaling service!
 [3-1-12-tags]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-12-tags.png
 [3-1-13-review]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-13-review.png
 [3-1-14-elbinstances]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-14-elbinstances.png
+[3-1-15-accesslb]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-15-accesslb.png
+[3-1-16-killec2]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-16-killec2.png
+[3-1-17-instancereplace]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-17-instancereplace.png
+[3-1-18-setasg]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-18-setasg.png
 [3-1-2-instancetype]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-2-instancetype.png
 [3-1-3-iamrole]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-3-iamrole.png
 [3-1-4-userdata]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-4-userdata.png
