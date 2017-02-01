@@ -56,7 +56,7 @@ We'll leave the listener configuration intact for the time being - but do click 
 
 ### 5.) Create security groups for your ELB
 
-On the next page, choose the option "Create a new Security Group". Take note that it's similar to the security groups you made for your instance earlier - similar to a "firewall" where you can say what kind of traffic is allowed. 
+On the next page, choose the option "Create a new Security Group". Take note that it's similar to the security groups you made for your instance earlier - similar to a "firewall" where you can say what kind of traffic is allowed.
 
 ![Image][2-1-5-secgroups]
 
@@ -71,7 +71,7 @@ On the next page, we'll be configuring our *health checks*. Health checks essent
 ![Image][2-1-6-healthchecks]
 
 
-For now, we'll choose *TCP* as the Ping Protocol, using *80* as the Ping Port. What this is saying, is that the Load Balancer will check port 80 of any attached instances, and mark it as "healthy" if it responds without errors. 
+For now, we'll choose *TCP* as the Ping Protocol, using *80* as the Ping Port. What this is saying, is that the Load Balancer will check port 80 of any attached instances, and mark it as "healthy" if it responds without errors.
 
 
 
@@ -89,7 +89,7 @@ As usual, tags. We'll put a Key of *Name* and a Value of *myname*-elb.
 ![Image][2-1-8-tags]
 
 
-### 10.) Finish up! 
+### 10.) Finish up!
 
 Review all the settings you've had, then click *Create*
 
@@ -122,10 +122,11 @@ sudo rm wp-config.php
 Now, open your browser and paste the *DNS Name* that you had in Step 11. This should show you an installation page. Proceed with the installation, but when you get to the panel that asks you for your database details, put in the following:
 
 ```
-Database Host: rds.internal.devopsgirls
+Database Name: devopsgirlsdb
 Database User: devopsgirls
 Database Password: devopsgirlsrds
-Database Prefix: firstname.lastname
+Database Host: rds.devopsgirls.internal
+Database Prefix: firstname_
 ```
 
 It should look like this:
@@ -211,7 +212,7 @@ For the rest of the instance configuration, specify the following:
 
 ```
  - Storage: Defaults
- - Tags: 
+ - Tags:
      Key:Name
      Value: myname-wordpress2
 ```
