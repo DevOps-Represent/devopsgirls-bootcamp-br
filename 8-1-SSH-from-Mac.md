@@ -23,7 +23,7 @@ ls ~/Downloads/banana-smith-keypair.pem
 Remember: this keypair is your way of logging into your instance! Therefore, it needs to be accessible only by you. We do this by executing the following command:
 
 ```
-chmod 600 ~/Downloads/banana-smith-keypair.pem
+chmod 600 ~/Downloads/[MY KEYPAIR NAME].pem
 ```
 
 Again, you need to make sure that you replace *[MY KEYPAIR NAME]* with your Key Pair's name. So for `banana-smith-keypair`, we would paste:

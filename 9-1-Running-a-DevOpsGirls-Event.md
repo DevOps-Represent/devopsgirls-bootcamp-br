@@ -168,3 +168,15 @@ Policy:
 4.) In the route table selection, select all the Route Tables displayed.
 
 After this, the environment should be ready.
+
+
+## On the day 
+
+### Registration
+
+Have two (2) volunteers take down the names of the people attending off a list. There will be two lists: a.) unconfirmed, and b.) confirmed. For the unconfirmed attendees, make sure to add them to the following:
+
+ - as an IAM user in AWS
+ - as a Slack user
+
+
