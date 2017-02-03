@@ -190,12 +190,12 @@ On Step 1, choose the *Amazon Linux AMI*. On the Instance Type, select *t2.micro
 
 You can think of *User Data* as scripts that you can run for your EC2 instance when it launches. We can use User Data to declare what we want to do - in this case, we're declaring the same commands that we used to install Wordpress the first time - except you don't have to login and do it manually anymore.
 
-On the *Advanced Details* tab of S3, paste the following into the *User Data* box:
+On the *Advanced Details* tab of *Step 3: Configure Instance Details*, paste the following into the *User Data* box:
 
 ```
 #!/bin/bash
 yum install -y mysql php php-mysql httpd
-aws s3 cp s3://devopsgirls-training.firstname.lastname-wordpress.tgz /var/www/wordpress.tgz --no-sign-request
+aws s3 cp s3://devopsgirls-training/firstname.lastname-wordpress.tgz /var/www/wordpress.tgz --no-sign-request
 tar xvfz /var/www/wordpress.tgz -C /var/www/html/
 chown -R apache /var/www/html/
 service httpd start
