@@ -108,7 +108,7 @@ Click on the link that goes to your ELB. As with the instance, you'll see a pane
 
 Because Wordpress keeps its URL data in the database, we'll need to reset your Wordpress installation. If your SSH session is still open then you're good to go - otherwise, go to the SSH instructions here.
 
-### 12.) Reset Wordpress
+### 12.) Reset Wordpress Config
 
 Using your Terminal or Putty, go to the Wordpress directory, then remove the wp-config.php file:
 
@@ -117,7 +117,7 @@ cd /var/www/html/
 sudo rm wp-config.php
 ```
 
-### 13.) Reinstall Wordpress
+### 13.) Reconfigure Wordpress database
 
 Now, open your browser and paste the *DNS Name* that you had in Step 11. This should show you an installation page. Proceed with the installation, but when you get to the panel that asks you for your database details, put in the following:
 
