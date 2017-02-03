@@ -195,7 +195,7 @@ On the *Advanced Details* tab of *Step 3: Configure Instance Details*, paste the
 ```
 #!/bin/bash
 yum install -y mysql php php-mysql httpd
-aws s3 cp s3://devopsgirls-training.firstname.lastname-wordpress.tgz /var/www/wordpress.tgz --no-sign-request
+aws s3 cp s3://devopsgirls-training/firstname.lastname-wordpress.tgz /var/www/wordpress.tgz --no-sign-request
 tar xvfz /var/www/wordpress.tgz -C /var/www/html/
 chown -R apache /var/www/html/
 service httpd start
