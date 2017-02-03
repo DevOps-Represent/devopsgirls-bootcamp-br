@@ -117,7 +117,7 @@ cd /var/www/html/
 sudo rm wp-config.php
 ```
 
-### 13.) Reinstall Wordpress
+### 13.) Reconfigure Wordpress database
 
 Now, open your browser and paste the *DNS Name* that you had in Step 11. This should show you an installation page. Proceed with the installation, but when you get to the panel that asks you for your database details, put in the following:
 
