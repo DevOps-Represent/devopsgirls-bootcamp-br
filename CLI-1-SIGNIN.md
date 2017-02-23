@@ -17,7 +17,7 @@ https://aws.amazon.com/
 
 
 
-Signing up with decently straight forward, please note that you cannot proceed without a Credit/Debit card.
+Signing up is decently straight forward, please note that you cannot proceed without meeting all the requirements.
 
 
 
