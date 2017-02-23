@@ -32,38 +32,3 @@ Signing up with decently straight forward, please note that you cannot proceed w
 * In AWS there is a free Tier of products that can be used with a personal account.
 * Once registration completed and you have signed up, there will be a large number of services available to you.
 * At the end of the boot camp, terminate any resource used / consumed. One needs to be responsible for resources used.
-
-
-
-
-
-
-
-
-
-
-
-
-
-Spin up EC2
-
-
-Add tags
-
-
-Log into Instance
-
-
-Generate SG
-
-
-Launch Instance
-
-
-Install WordPress / Services
-
-
-Start Services
-
-
-Create DB and Permissions
