@@ -1,4 +1,4 @@
-## SignUp - (10 min)
+## AWS Account SignUp - (10 min)
 
 To participate in the advanced CLI module, you will require your own Personal AWS Account.
 
