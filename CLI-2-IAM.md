@@ -16,7 +16,10 @@ This component will take you through
 
 ![SignIn URL](/images/IAM/iam_services.png)
 
-https://108579991914.signin.aws.amazon.com/console
 
+Each AWS Account gets a unique Sign URL that created IAM users can use to log into the Console.
+This can be found on the main Dashboard tab under IAM.
 
 ![SignIn URL](/images/IAM/iam_signinurl.png)
+
+https://108579991914.signin.aws.amazon.com/console
