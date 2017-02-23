@@ -14,14 +14,14 @@ To participate in DevOpsGirls, you will need:
 
 DevOpsGirls Bootcamp is run from two different approaches:
 
-1. Console / Web Interface 
+1. Console / Web Interface
 2. CLI (Advanced)
 
 
 Console / Web Interface will cover off the following modules:
 
 
-1.) [What are EC2 instances?](https://github.com/DevOpsGirls/devopsgirls-bootcamp/blob/master/1-1-EC2.md)
+1.) [What are EC2] instances?](https://github.com/DevOpsGirls/devopsgirls-bootcamp/blob/master/1-1-EC2.md)
 
 2.) [What is an ELB?](https://github.com/DevOpsGirls/devopsgirls-bootcamp/blob/master/2-1-ELB.md)
 
@@ -30,7 +30,7 @@ Console / Web Interface will cover off the following modules:
 
 CLI
 
-1.) [Creating a AWS Accoun]t
+1.) [Creating a AWS Account]
 2.) [IAM]
 3:) [AWSCLI Tooling to create EC2 intances, Autoscaling Groups and installation of Wordpress]
 4.) [CloudFormation]
