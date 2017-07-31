@@ -29,18 +29,10 @@ If you run into anything, just give your coaches a shout - we'll be happy to hel
 Good luck!
 
 
-Additional Modules:
-
-1.) [AWS Account SignUp](https://github.com/phenshaw78/devopsgirls-bootcamp/blob/master/CLI-SIGNIN.md)
-
-2.) [IAM Overview](https://github.com/phenshaw78/devopsgirls-bootcamp/blob/master/CLI-2-IAM.md)
-
-3.) [AWSCLI Overview and examples](https://github.com/phenshaw78/devopsgirls-bootcamp/blob/master/CLI-3-MAIN.md)
-
-4.) [CloudFormation](https://github.com/DevOpsGirls/devopsgirls-bootcamp)
-
 
 ## Problems Solved
 The above modules provide the foundation on how to solve some of the following business problems:
+
 * Providing redundancy and scalability for a web application
+
 * Removing the dependancy on externally hosted content by leveraging S3  
