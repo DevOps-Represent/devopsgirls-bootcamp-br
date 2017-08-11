@@ -68,7 +68,7 @@ chown -R apache /var/www/html
 service httpd start
 ```
 
-**Make sure** you change `firstname.lastname-wordpress.tgz` to your name, or the filename of the Wordpress package you sent over.
+**Make sure** you change `firstname.lastname-wordpress.tgz` to your name, or the filename of the Wordpress package you sent over. And change the S3 bucket name to your specific account.
 
 ![Image][3-1-4-userdata]
 
