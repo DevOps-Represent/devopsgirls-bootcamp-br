@@ -155,10 +155,19 @@ With this command, changing directories to */var/www/html* - where Wordpress is 
 
 ### 16.) Upload the file to S3
 
-S3 is an object store - essentially allowing you to upload files to a directory that you can share either within the account, or to the world. We do this by running the following command:
+S3 is an object store - essentially allowing you to upload files to a directory that you can share either within the account, or to the world. We do this by running the following commands - one to set the maximum size of the upload, and one to *copy* the file to S3 ( *s3 cp* ).
+
 
 ```
+aws configure set default.s3.multipart_threshold 64MB
 aws s3 cp ~/firstname.lastname-wordpress.tgz s3://devopsgirls-training/firstname.lastname-wordpress.tgz --no-sign-request
+```
+
+Depending on the AWS login that you used ( `devopsgirls`, `devopsgirls-2`, or `devopsgirls-3`, you may need to change the S3 bucket to upload to. `devopsgirls` accounts need to use `devopsgirls-training`, `devopsgirls-2` accounts need to use `devopsgirls-training-2`, and `devopsgirls-3` accounts need to use `devopsgirls-training-3`. For example, for a `devopsgirls-2` account:
+
+```
+aws configure set default.s3.multipart_threshold 64MB
+aws s3 cp ~/firstname.lastname-wordpress.tgz s3://devopsgirls-training-2/firstname.lastname-wordpress.tgz --no-sign-request
 ```
 
 ### 17.) Confirm the file exists using the web console:
@@ -195,13 +204,14 @@ On the *Advanced Details* tab of *Step 3: Configure Instance Details*, paste the
 ```
 #!/bin/bash
 yum install -y mysql php php-mysql httpd
+aws configure set default.s3.multipart_threshold 64MB
 aws s3 cp s3://devopsgirls-training/firstname.lastname-wordpress.tgz /var/www/wordpress.tgz --no-sign-request
 tar xvfz /var/www/wordpress.tgz -C /var/www/html/
 chown -R apache /var/www/html/
 service httpd start
 ```
 
-Your configuration should look like this:
+Again, make sure that you change the S3 bucket name (`devopsgirls-training`, `devopsgirls-training-2`, or `devopsgirls-training-3`). Your configuration should look like this:
 
 ![Image][2-1-15-userdata]
 
