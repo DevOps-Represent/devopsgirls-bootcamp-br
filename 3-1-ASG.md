@@ -222,6 +222,46 @@ In the AWS console, check under *Services > EC2 > Instances* every minute or so.
 
 Congratulations! You have an automated scaling service!
 
+## Making everything using Cloudformation
+
+### 24.) Download the Cloudformation template
+
+Download the cloudformation template here. You can open it with your text editor (Notepad, or something similar).
+
+### 25.) Read through the template
+
+What you're going to notice is that everything you've made is basically declared line by line if you scroll down. I know it looks intimidating, but don't worry! This is just a declaration of what things you want build.
+
+### 26.) Go to the Cloudformation section
+
+Go to **Services > Cloudformation**. Click on **Create Stack**.
+
+This will point you to a page where you can upload your template file. Click on **Next**.
+
+![Image][3-1-19-upload]
+
+
+### 27.) Set the Stack Name and Parameters
+
+Set the `DevopsGirlsUser` parameter. Use your `firstname.lastname` format for this.
+
+Change `WordpressS3Bucket` to the name of your S3 bucket name - for example `devopsgirls-training-2` or `devopsgirls-training-3` depending on which account you were setup in.
+
+### 28.) Review, and click on IAM resources
+
+Click through the rest of the dialogs until you get to the **Review** section. On the text box at the bottom that says "*I acknowledge that AWS CloudFormation might create IAM resources*", tick the boxes.
+
+![Image][3-1-20-iam]
+
+Click on *Create*.
+
+### 29.) See your stack get created
+
+Go to **Services > Cloudformation** and look for the stack name you set earlier. On the dialog box at the bottom, click on *Events*. Refresh it every now and then - and watch as your environment gets created!
+
+
+Congratulations! Now you've deployed things with code!
+
 
 [3-1-10-subnets]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-10-subnets.png
 [3-1-11-elb]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-11-elb.png
@@ -232,6 +272,8 @@ Congratulations! You have an automated scaling service!
 [3-1-16-killec2]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-16-killec2.png
 [3-1-17-instancereplace]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-17-instancereplace.png
 [3-1-18-setasg]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-18-setasg.png
+[3-1-19-upload]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-19-upload.png
+[3-1-18-iam]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-20-iam.png
 [3-1-2-instancetype]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-2-instancetype.png
 [3-1-3-iamrole]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-3-iamrole.png
 [3-1-4-userdata]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-4-userdata.png
