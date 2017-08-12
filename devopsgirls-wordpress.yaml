@@ -162,7 +162,7 @@ Resources:
             - "aws configure set default.s3.multipart_threshold 64MB \n"
             - aws s3 cp s3://devopsgirls-training/
             - !Ref 'DevopsGirlsUser'
-            - ".tgz /var/www/wordpress.tgz --no-sign-request \n"
+            - "-wordpress.tgz /var/www/wordpress.tgz --no-sign-request \n"
             - "tar xvfz /var/www/wordpress.tgz -C /var/www/html/ \n"
             - "chown -R apache /var/www/html/ \n"
             - "service httpd start \n"
