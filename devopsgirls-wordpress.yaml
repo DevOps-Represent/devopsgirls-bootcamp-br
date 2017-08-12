@@ -160,6 +160,7 @@ Resources:
           - - "#!/bin/bash -xe \n"
             - "yum update -y aws-cfn-bootstrap \n"
             - "aws configure set default.s3.multipart_threshold 64MB \n"
+            - "mkdir -p /var/www/html \n"
             - aws s3 cp s3://devopsgirls-training/
             - !Ref 'DevopsGirlsUser'
             - "-wordpress.tgz /var/www/wordpress.tgz --no-sign-request \n"
