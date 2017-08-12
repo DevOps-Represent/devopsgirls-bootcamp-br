@@ -226,7 +226,7 @@ Congratulations! You have an automated scaling service!
 
 ### 24.) Download the Cloudformation template
 
-Download the cloudformation template here. You can open it with your text editor (Notepad, or something similar).
+Download the cloudformation template [here](https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/devopsgirls-wordpress.yaml). You can open it with your text editor (Notepad, or something similar).
 
 ### 25.) Read through the template
 
