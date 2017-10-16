@@ -30,7 +30,7 @@ Parameters:
   WordpressS3Bucket:
     Default: devopsgirls-training
     NoEcho: 'true'
-    Description: Bucket to get wordpress from
+    Description: Bucket to get Wordpress from
     Type: String
 
 Mappings:

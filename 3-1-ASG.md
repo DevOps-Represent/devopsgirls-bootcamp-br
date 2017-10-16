@@ -222,7 +222,9 @@ In the AWS console, check under *Services > EC2 > Instances* every minute or so.
 
 Congratulations! You have an automated scaling service!
 
-## Making everything using Cloudformation
+## Infrastructure as code
+
+Now that you've done everything to make a self-healing scaling group, it's time for you to deploy it all as code. Infrastructure-as-code is an important idea within DevOps - this makes sure that your infrastructure is repeatable, and is easy to collaborate on.
 
 ### 24.) Download the Cloudformation template
 
