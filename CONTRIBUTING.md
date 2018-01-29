@@ -5,6 +5,64 @@ email, or any other method with the owners of this repository before making a ch
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
+## Pull Request Process
+
+1. Update the CHANGES.md with details of changes to the modules - this includes corrections,
+   syllabus updates for new features, or practical information.
+2. You may merge the Pull Request in once you have the sign-off of another developer, or if you 
+   do not have permission to do that, you may request the reviewer to merge it for you.
+
+## Module Guidelines
+
+### Good questions to ask
+
+Before making a DevOps Girls module, consider asking the following questions:
+
+#### 1.) Who is it for?
+
+It's important to identify who your target audience is, and what their knowledge baselines would be.
+Put into practical terms: are you planning to cater for absolute beginners? Or do you aim to teach
+people with existing backgrounds in tech?
+
+Even then, it's important to identify the level of experience you're working with. This is critical as
+you define the level of depth you want to dive in - e.g., do you assume that the attendees have experience
+with the command line, or do you also need to cover CLI basics? 
+
+#### 2.) What are my learning outcomes?
+
+It is also good to be able to articulate what you want the attendees to be able to do: the workshop aims to
+empower people, and it's useful to declare where you'd want them to be by the end of the day.
+
+To put it into questions: do you want the attendees to be able to *remember* what you covered, or do you
+want them to be able to *create a solution*? Would they be able to *evaluate* between different solutions?
+
+Consider using [Bloom's Taxonomy of Learning](https://teachingcommons.stanford.edu/sites/default/files/blooms.png)
+as a guide. 
+
+#### 3.) What does feedback look like?
+
+**Knowledge checks** are a powerful tool - they let you verify if the attendees understand your content,
+while at the same time encouraging knowledge retention. This is why teachers usually structure lessons
+so that there are quizzes at the end of it.
+
+Feedback can take many shapes: a quiz, a poll, or a question at the end of your practicals. Maybe make it
+fun even - have some small prizes for attendees who ask good questions.
+
+### Module Format
+
+#### 1.) The talk.
+
+#### 2.) Self-driven practical
+
+
+#### 3.) Knowledge check
+
+### Overall structure
+
+#### Option A.) The "Kata"
+
+#### Option B.) The "Castle"
+
 
 ## Code of Conduct
 
