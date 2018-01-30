@@ -14,8 +14,6 @@ To participate in DevOpsGirls, you will need:
 DevOpsGirls Bootcamp is composed of three primary  modules with an additional modules available for those looking to take on a bit more.
 
 
-
-
 1.) [What are EC2 instances?](https://github.com/DevOpsGirls/devopsgirls-bootcamp/blob/master/1-1-EC2.md)
 
 2.) [What is an ELB?](https://github.com/DevOpsGirls/devopsgirls-bootcamp/blob/master/2-1-ELB.md)
@@ -28,11 +26,6 @@ If you run into anything, just give your coaches a shout - we'll be happy to hel
 
 Good luck!
 
+## I want to contribute to DevOps Girls. How can I help?
 
-
-## Problems Solved
-The above modules provide the foundation on how to solve some of the following business problems:
-
-* Providing redundancy and scalability for a web application
-
-* Removing the dependancy on externally hosted content by leveraging S3  
+The modules are free for anyone to use - and if you want to create your own and add it to the repository, feel free to check out our [contribution guidelines](/CONTRIBUTING.md)
