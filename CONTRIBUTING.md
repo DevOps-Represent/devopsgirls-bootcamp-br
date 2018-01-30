@@ -38,7 +38,7 @@ empower people, and it's useful to declare where you'd want them to be by the en
 To put it into questions: do you want the attendees to be able to *remember* what you covered, or do you
 want them to be able to *create a solution*? Would they be able to *evaluate* between different solutions?
 
-Consider using [Bloom's Taxonomy of Learning](https://teachingcommons.stanford.edu/sites/default/files/blooms.png)
+Consider using [Bloom's Taxonomy of Learning](https://en.wikipedia.org/wiki/Bloom%27s_taxonomy)
 as a guide. 
 
 ![Bloom's Taxonomy](/images/CONTRIBUTING/blooms-taxonomy.png)
