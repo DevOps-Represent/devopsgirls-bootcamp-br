@@ -1,18 +1,10 @@
 # DevOpsGirls Bootcamp
 
-In this repository are the slides and content for DevOpsGirls Bootcamp modules held at REA Group Melbourne. http://rea.tech/
-
-## What you'll need:
-
-To participate in DevOpsGirls, you will need:
-
- - A working laptop (OSX or Windows)
- - If using Windows, an SSH client like [Putty.](http://www.chiark.greenend.org.uk/~sgtatham/putty/)
+In this repository are the slides and content for DevOpsGirls Bootcamp modules.
 
 ## Practicals
 
-DevOpsGirls Bootcamp is composed of three primary  modules with an additional modules available for those looking to take on a bit more.
-
+DevOpsGirls Bootcamp is composed of three primary modules with an additional modules available for those looking to take on a bit more.
 
 1.) [What are EC2 instances?](https://github.com/DevOpsGirls/devopsgirls-bootcamp/blob/master/1-1-EC2.md)
 
