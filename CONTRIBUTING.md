@@ -79,13 +79,36 @@ If you're feeling up for it, *moonshots* are also a good idea - optional exercis
 
 #### 3.) Knowledge check
 
+Consider saving a portion of time for reflection and self-evaluation. Ask the attendees questions (whether in text or face-to-face):
 
+ - What did you learn?
+ - How would you apply this to something you want to do?
 
 ### Overall structure
 
+It's worth thinking about the day as a whole. There's multiple ways that you can structure an all-day DevOps Girls workshop.
+
 #### Option A.) The "Kata"
 
+![The Kata](/images/CONTRIBUTING/the-kata.png)
+
+The "Kata" is essentially a way of structuring your content so that all your modules produce roughly the same output. 
+Imagine an EC2, ECS, and Lambda modules all producing a standard webapp.
+
+This approach works if you want to enable attendees by giving them the ability to distinguish between different
+ways to approach a problem. *When do I use an EC2 versus a Lambda?* would be the kind of questions that they will 
+be able to answer.
+
 #### Option B.) The "Castle"
+
+![The Castle](/images/CONTRIBUTING/the-castle.png)
+
+The "Castle" is a way of structuring your content so that your modules contribute to *one big thing*. Imagine an
+EC2, RDS, and ELB module all contributing towards building a reasonably complex ecosystem.
+
+This approach works if you want to enable attendees by giving them the experience of wiring up several systems
+and making them understand how to make everything work together. AWS thrives on providing "lego blocks" that
+you can stitch together, and this is a good way to highlight that.
 
 
 ## Code of Conduct
