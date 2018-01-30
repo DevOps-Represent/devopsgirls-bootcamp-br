@@ -1,3 +1,25 @@
+- [Contributing](#contributing)
+  * [Pull Request Process](#pull-request-process)
+  * [Module Guidelines](#module-guidelines)
+    + [Good questions to ask](#good-questions-to-ask)
+      - [1.) Who is it for?](#1--who-is-it-for-)
+      - [2.) What are my learning outcomes?](#2--what-are-my-learning-outcomes-)
+      - [3.) What does feedback look like?](#3--what-does-feedback-look-like-)
+    + [Module Format](#module-format)
+      - [1.) Talk and Theory (15-30 minutes)](#1--talk-and-theory--15-30-minutes-)
+      - [2.) Self-driven practical (60-90 minutes)](#2--self-driven-practical--60-90-minutes-)
+      - [3.) Knowledge check](#3--knowledge-check)
+    + [Overall structure](#overall-structure)
+      - [Option A.) The "Kata"](#option-a--the--kata-)
+      - [Option B.) The "Castle"](#option-b--the--castle-)
+  * [Code of Conduct](#code-of-conduct)
+    + [Our Pledge](#our-pledge)
+    + [Our Standards](#our-standards)
+    + [Our Responsibilities](#our-responsibilities)
+    + [Scope](#scope)
+    + [Attribution](#attribution)
+
+
 # Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue,
