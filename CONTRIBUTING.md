@@ -18,6 +18,8 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 Before making a DevOps Girls module, consider asking the following questions:
 
+![Lean Canvas](/images/CONTRIBUTING/module-lean-canvas.png)
+
 #### 1.) Who is it for?
 
 It's important to identify who your target audience is, and what their knowledge baselines would be.
@@ -39,6 +41,8 @@ want them to be able to *create a solution*? Would they be able to *evaluate* be
 Consider using [Bloom's Taxonomy of Learning](https://teachingcommons.stanford.edu/sites/default/files/blooms.png)
 as a guide. 
 
+![Bloom's Taxonomy](/images/CONTRIBUTING/blooms-taxonomy.png)
+
 #### 3.) What does feedback look like?
 
 **Knowledge checks** are a powerful tool - they let you verify if the attendees understand your content,
@@ -50,12 +54,32 @@ fun even - have some small prizes for attendees who ask good questions.
 
 ### Module Format
 
-#### 1.) The talk.
+#### 1.) Talk and Theory (15-30 minutes)
 
-#### 2.) Self-driven practical
+It's good to have a fun, informative talk before diving into the practicals. Consider covering the following areas:
 
+ - The history and context of the particular technology
+ - How it works
+ - How and when to use it
+ - How it's valuable to the business
+
+Keep it short, but remember to pace down. It's better to take your time than rush too fast and risk leaving people
+behind - remember: not everyone is willing to ask you to repeat concepts and facts.
+
+
+#### 2.) Self-driven practical (60-90 minutes) 
+
+Consider running a practical exercise that the attendees can follow. A few things to keep in mind:
+
+ - Make sure that everyone knows beforehand what they need to go through it. Do they need `awscli` installed? Do they need their own AWS account?
+ - Make sure that the environments the attendees are deploying/building to are enclosed and free of dependencies.
+ - Make sure that coaches have gone through the material beforehand.
+
+If you're feeling up for it, *moonshots* are also a good idea - optional exercises for those who blitz through the material.
 
 #### 3.) Knowledge check
+
+
 
 ### Overall structure
 
