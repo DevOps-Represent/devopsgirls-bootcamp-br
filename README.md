@@ -1,4 +1,8 @@
-# DevOpsGirls Bootcamp
+[![License](https://img.shields.io/badge/License-CC0-green.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
+
+# DevOpsGirls Bootcamp!
+
+![DevOps Girls](/images/devopsgirls.jpg)
 
 In this repository are the slides and content for DevOpsGirls Bootcamp modules.
 
