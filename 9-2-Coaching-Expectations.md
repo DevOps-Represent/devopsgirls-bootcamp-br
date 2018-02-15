@@ -12,7 +12,7 @@ Other participants might be more comfortable with in-person assistance, so we ha
 
 ## Roamers
 
-A couple of people can wander the room, providing ad-hoc assistance where other helpers are already occupied.
+A couple of people can wander the room, providing ad-hoc assistance where other helpers are already occupied. Look out for people with furrowed brows or other confused looks on their faces, and ask them if they need a hand.
 
 ## Latecomer helpers
 
