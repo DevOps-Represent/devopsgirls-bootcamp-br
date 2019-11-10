@@ -1,6 +1,6 @@
 # Acesso SSH via Windows
 
-Infelismente, o melhor client SSH para Windows requer um formato próprio. Então para acesso via Windows temos 2 passos:
+Infelizmente, o melhor client SSH para Windows requer um formato próprio. Então para acesso via Windows temos 2 passos:
 
 A.) Gerar a chave
 
