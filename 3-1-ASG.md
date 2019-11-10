@@ -1,43 +1,44 @@
-# Launch Configurations and Auto Scaling Groups
+# Configurações de inicialização e grupos de Auto Scaling 
 
-## Key Concepts
+## Conceitos
 
-Before we get started, here are a couple of loose concepts:
+Antes de começarmos, vamos visitar alguns conceitos básicos:
 
- - *Launch Configurations are a blueprint for how you want to make your instances*. This means that you configure it in the same way that you would configure an EC2 instance, with the difference that you're not actually making one - you're making a *plan* for your instance.
+ - *Configurações de inicialização são um modelo de como você deseja criar as suas instâncias*. Isso significa que você pode configurá-las da mesmo forma que você configuraria uma instância EC2, com a diferença de que, neste caso, você não está de fato criando-a e sim criando um *plano* para elas. 
 
- - *Autoscaling Groups dictate how many instances you want to run.* It has many mechanisms for doing so - via manual intervention or system checks, but combined with Launch Configurations, you can automate the process of making instances.
+ - *Grupos de Autoscaling decretam quantas instâncias você deseja que estejam ativas*. Há vários mecanismos para se fazer isso - atravésde intervenção manual ou checagens de sistema, mas combinado com Configurações de Inicialização, você pode automatizar esse processo. 
 
-Now that's out of the way, let's get started!
+Agora vamos começar!
 
-## What we're going to do
+## O que iremos fazer
 
-In this practical session, we will:
+Neste exercício prático, nós iremos:
 
- - Create a Launch Configuration
+    - Criar uma configuração de inicialização
 
- - Specify UserData as we did with EC2 earlier
+    - Especificar o User Data como fizemos no EC2 anteriormente
 
- - Create an Autoscaling Group
+    - Criar um Grupo de Autoscaling
 
- - Configure Autoscaling group so it attaches instances to the ELB
+    - Configurar o grupo de Autoscaling para atribuir instâncias ao ELB
 
- - Test scaling up or down
+    - Testar o scaling
  
 
-## Creating a Launch Configuration
+## Criando uma configuração de inicialização
 
 
-### 1.) Creating your Launch Configuration
+### 1.) Criando a configuração de inicialização
 
-Go to Services > EC2, then look for *Launch Configurations* on the left-hand side. Click on *Create Launch Configuration*
+Va a *Services > EC2* e procure por *Launch Configurations* na sessão a esquerda. Clique em *Create Launch Configuration*.
 
 ![Image][3-1-createlcfg]
 
 
-### 2.) Set your Launch configuration size, and AMI
+### 2.) Defina o tamanho da configuração e AMI
 
-We will configure your Launch Configuration in the same way we configure your instance - with the following parameters:
+Nós vamos configurar a configuração de inicialização da mesma forma que configuramos a nossa instância anteriormente - com os seguintes parâmetros:
+
 
 ```
  - AMI: Amazon Linux AMI
@@ -47,222 +48,227 @@ We will configure your Launch Configuration in the same way we configure your in
 ![Image][3-1-2-instancetype]
 
 
-### 3.) Configure Launch Configuration details
+### 3.) Configure os detalhes da configuração de inicialização
 
-We'll then set your Launch Configuration details. Name your Launch Config *myname-launchconfig*.
+Nós vamos definir os detalhes da nossa configuração. Nomeie-a como *meunome-launchconfig* (lembre-se de trocar *meunome* pelo seu nome).
 
 ![Image][3-1-3-iamrole]
 
-Note that this IAM role only allows read-only access to the contents of the S3 bucket you've placed your Wordpress package in - and nothing else. 
+Note que esse papel IAM permite somente acesso de leitura aos conteúdos do bucket S3 onde você colocou o seu pacote Wordpress (e nada mais).
 
-### 4.) Set Advanced Details
+### 4.) Defina detalhes avançados
 
-In the same panel, click on *Advanced Details*. In the *User Data* field, paste the following in:
+No mesmo painel, clique em *Advanced Details*. No campo *User Data*, cole os seguintes comandos:
 
 ```
 #!/bin/bash
 yum install -y mysql php php-mysql httpd
-aws s3 cp s3://devopsgirls-training/firstname.lastname-wordpress.tgz /var/www/wordpress.tgz --no-sign-request
+aws s3 cp s3://devopsgirls-training/primeironome.ultimonome-wordpress.tgz /var/www/wordpress.tgz --no-sign-request
 tar xvfz /var/www/wordpress.tgz -C /var/www/html/
 chown -R apache /var/www/html
 service httpd start
 ```
 
-**Make sure** you change `firstname.lastname-wordpress.tgz` to your name, or the filename of the Wordpress package you sent over. And change the S3 bucket name to your specific account.
+**Certifique-se** de que você modificou  `primeironome.ultimonome-wordpress.tgz` pelo seu nome, ou pelo nome que você definiu anteriormente. Modifique também o nome do bucket S3 de acordo com a sua conta.
 
 ![Image][3-1-4-userdata]
 
 
-### 5.) Disable public IP addresses
+### 5.) Desabilite o endereço de IP público
 
-In the same panel, select *Do not assign public IP*. This is an important security measure, and separates the instances from the public web - all interaction is via your Load Balancer.
+No mesmo painel, selecione *Do not assign public IP*. Isso é importante em termos de segurança e separa as instânvias da web pública - todas as interações serâo feitas através do balanceador.
 
-Go to the next page afterwards.
+Vá para a próxima página.
 
-### 6.) Set storage
+### 6.) Adicione um storage (armazenamento)
 
-We don't need to modify the storage, so we'll leave everything in *Add Storage* as default for now.
+Nós não precisamos modificar o armazenamento, então deixe tudo em *Add Storage* com os valores padrão por agora.
 
 ![Image][3-1-5-storage]
 
 
 ### 7.) Security Groups
 
-We'll do the same thing that we did with your previous EC2 instance. In *Protocol*, select *HTTP* - then set *Source* to *"Custom IP"*. If you type out the name of the Load Balancer you created earlier, it should show up on the list.
+Nós iremos fazer o mesmo que fizemos anteriormente com as instâncias EC2. Em *Protocol*, selecione *HTTP* - então defina *Source* como *"Custon IP"*. Se você começar a digitar o nome do balanceador que você criou anteriormente, ele deve aparecer na lista.
 
 ![Image][3-1-6-secgroups]
 
 
-The good thing about this is that for any instances we're creating, we're only ever expecting HTTP traffic *only from your Load Balancer*. This is a good thing.
+O ponto positivo disso é que qualquer instância que nós criarmos receberá tráfego HTTP *somente do seu balanceador*.
 
-### 8.) Verify your configuration, select the SSH KeyPair
+### 8.) Verifique a sua configuração, selecione o par de chaves SSH
 
-We'll finish up with a review of your Launch Configuration. Check that everything is valid, then click on *Create Launch Configuration*
+Revise a sua configuração de inicialização. Verifique se tudo está correto e crique em *Create Launch Configuration*. 
 
 ![Image][3-1-7-reviewlc]
 
 
-As with creating EC2 instances, this will ask you to specify a Key Pair. Specify the one you created earlier.
+Assim como quando criamos as instâncias EC2, será pedido para que você especifique um par de chaves. Selecione o que você criou anteriormente.
 
-## Creating an AutoScaling Group
+## Criando um grupo de Autoscaling
 
-### 9.) Create an Autoscaling Group for your Launch Config
+### 9.) Crie um grupo de Autoscaling para a sua configuração de inicialização
 
-Once you click *Create Launch Configuration*, you should see another button called *Create an Autoscaling Group using this Launch Configuration*. Click on it.
+Uma vez que você clicou em *Create Launch Configuration*, você deverá ver um botão chamado *Create an Autoscaling Group using this Launch Configuration*. Clique nele. 
 
 ![Image][3-1-8-createsgh]
 
 
-### 10.) Set Autoscaling Group details
+### 10.) Configure os detalhes do grupo de Autoscaling
 
-In the next panel, specify the GroupPame as *myname-asg*. Set Group Size to *2* instances.
+No próximo painel, especifique de GroupName como *meunome-asg* (substitua *meunome* pelo seu nome). Configure *Group Size* para *2* instâncias.
 
 ![Image][3-1-9-asgname]
 
 
-### 11.) Select Network and Subnets
+### 11.) Selecione Network e Subnets
 
-For this exercise, we'll use the VPC marked *default*. If you click on the *Subnet* input box, you should be given two to three subnets to choose from. Select *all of them* as destinations.
+Para este exercício, iremos usar a VPC marcada como *default*. Se você clicar em *Subnet*, você terá de duas a três opções para escolher. Selecione *all of them* como destino.
+
 
 ![Image][3-1-10-subnets]
 
 
-Subnets essentially set which Availability Zones to deply your instances under. Think of Availability Zones as datacenters - separate locations in Sydney where your instance will live. You'll want a good spread - this protects your service from outages if say, a datacenter in one Sydney location goes down.
+Subnetes (subredes) basicamente define quais Availability Zones (zonas de disponibilidade) suas instâncias ficarão. Pense em Availability Zones como se fossem datacenters - diferentes localidades no Brasil onde sua instância irá ficar. 
+Subnets essentially set which Availability Zones to deply your instances under. Think of Availability Zones as datacenters - separate locations in Sydney where your instance will live. Isso protege seu serviço contra interrupções, se, por exemplo, um datacenter em um local do Brasil ficar inativo.
 
-### 12.) Set Load Balancer
+### 12.) Defina o Balanceador
 
-If you click on *Advanced Details* under the same pane, you should see a tickbox called *Load Balancing*. This allows you to register the server as *live* and attaches it to the Load Balancer you created earlier.
+Se você clicar em *Advanced Details* no mesmo painel, você verá uma caixa de seleção chamada *Load Balancing*. Isso irá permitir que você registre o servidor como *live* e atribuí-lo ao balanceador criado anteriormente. 
+
 
 ![Image][3-1-11-elb]
 
 
-An additional set of options should appear. If you click on the input box for *Classic Load Balancers*, you should be able to select the Load Balancer you created earlier.
+Um conjunto adicional de opções irá aparecer. Se você clicar na caixa *Classic Load Balancers*, você poderá selecionar o balanceador que voce criou.
 
-### 13.) Keep scaling policies default
+### 13.)Mantenha as scaling pocilies (políticas de escalonamento) como padrão
+
+Nós não vamos mexer nas Scaling Policies agora, então escolha *Keep this group at its initial size*. Só lembre-se que você pode usar *policies* para monitorar o uso de memória ou CPU das suas instâncias - por exemplo: se o uso de CPU ultrapassar 70%, você pode configurar uma policy para adicionar mais instâncias automaticamente. 
 
 
-We're not going to be playing with Scaling Policies for the time being - so choose *Keep this group at its initial size*. Just keep in mind that you can use policies to watch for the CPU or memory use of your instances - so for example, if the CPU ever goes over 70% usage, you can choose to add more instances automatically.
+### 14.) Pule a parte de notificações
 
-### 14.) Skip notifications
+Nós não iremos enviar notificações agora. Pense nisso como se fosse uma maneira de notificar alguem que um determinado evento ocorreu - por exemplo, uma instância foi deletada ou iniciada.
 
-We'll choose not to send notifications at this time. Think of this as a way of notifying someone if an event occurs - if say, an instance is launched or deleted.
 
-### 15.) Configure tags
+### 15.) Configure as tags
 
-As with anything that we do, it's iportant to tag our to-be-created instances as soon as they're created. Set a Key of *Name*, and set the Value to your name.
+Como sempre fazemos, é importante adicionar tags para as futuras instâncias assim que forem criadas. Adicione uma chave *Name* e adicione o seu nome como valor.
 
 ![Image][3-1-12-tags]
 
 
-### 16.) Review, and finish up!
+### 16.) Revise e finalize!
 
-You should be met with a section where you can review the changes that have occurred. Click *Create Auto Scaling Group* once you're ready, and it should kick things off.
+Você encontrará uma sessão onde poderá revisar as informações inseridas. Clique em *Create Auto Scaling Group*.
 
 ![Image][3-1-13-review]
 
 
+## Testando o seu grupo de Autoscaling: Substituindo instâncias
 
-## Testing your Autoscaling Group: Replacing Instances
+Agora tudo está pronto! Nós temos um *modelo* para criar instâncias e temos um *contador* de instâncias a serem criadas, então vamos ver se está tudo funcionando!
 
-Now, everything should be ready! We have our *blueprint* for creating instances, and we have a *count* of instances to create, so let's see if it's working!
+### 17.) Verifique o seu balanceador novamente
 
-### 17.) Check your Load Balancer again
-
-Go to *Services > EC2 > Load Balancers*. Select the Load Balancer you created previously (*myname-elb*), then look for the description.
+Va em *Services > EC2 > Load Balancers*. Selecione o balanceador que você criou antes (*meunome-elb*), então procure pela descrição dele.
 
 ![Image][3-1-14-elbinstances]
 
 
-### 18.) Use the DNS Name to access your Load Balancer
+### 18.) Use o DNS para acessar o seu balanceador
 
-Copy the DNS name (similar to below), and paste it on another tab. You're effectively looking at any of your four instances.
+Copie o nome de DNS (semelhante ao mostrado abaixo) e cole em outra aba do seu navegador. Você está vendo agora uma de suas 4 instâncias.
+
 
 ![Image][3-1-15-accesslb]
 
 
-### 19.) Kill your instances
+### 19.) Mate suas instâncias
 
-Go to *Services > EC2 > Instances*. In the search box above, you should be able to type your name - allowing you to search any instances you tagged with your name.
+Va em *Services > EC2 > Instances*. No campo de pesquisa acima digite o seu nome - assim você irá pesquisar todas as instâncias que tiverem o seu nome como tag.
 
-For all of your four instances, *Right-Click > Instance State > Terminate*.
+Para cada uma das suas 4 instâncias: *Clique com botão direito > Instance State > Terminate*.
 
 ![Image][3-1-16-killec2]
 
 
-### 20.) Check your ELB
+### 20.) Verifique o seu ELB
 
-Check the browser tab where you pasted your Load Balancer's DNS name. It should be return with a problem shortly.
+No seu navegador, recarrege a aba com o nome de DNS do seu balanceador. Você deverá receber um erro.
 
 
-### 21.) Watch new instances get created
+### 21.) Observe as novas instâncias serem criadas 
 
-In the AWS console, check under *Services > EC2 > Instances* every minute or so. What you should see is that eventually, new instances with your name should be created.
+No console AWS, verifique em *Services > EC2 > Instances* a cada minuto. Você irá ver novas instâncias com o seu nome serem criadas.
 
 ![Image][3-1-17-instancereplace]
 
 
 
-## Testing your Autoscaling Group: Resizing the number of instances
+## Testando o seu grupo de Autoscaling: Redefina o numero de instâncias
 
-Now that we know that your instances are getting automatically replaced, we can see what happens when we change the number of instances in your Autoscaling Group.
+Agora que sabemos que as instâncias são iniciadas automaticamente, nós podemos ver o que acontece se mudarmos o numero de instâncias no grupo de Autoscaling.
 
-### 22.) Modify your Autoscaling Group
+### 22.) Modifique o seu grupo de Autoscaling
 
-Go to *Services > EC2 > Autoscaling Group*. Look for the Autoscaling Group you created.
+Va em *Services > EC2 > Autoscaling Group*. Procure pelo grupo de Autoscaling que você criou.
 
-Once you highlight the Autoscaling Group you created, go to the bottom panel and click on *Edit*. Set your *Desired Instances* to 3 and your *Max Instances* to 3. Click on *Save*.
+Após selecionar o grupo de Autoscaling que você criou, vá no painel inferior e clique em *Edit*. Defina *Desired Instances* como 3 e *Max Instances* como 3. Clique em *Save*.
 
 ![Image][3-1-18-setasg]
 
 
-### 23.) Watch new instances get created
+### 23.) Observe as novas instâncias serem criadas
 
-In the AWS console, check under *Services > EC2 > Instances* every minute or so. What you should see is that eventually, new instances with your name should be created.
+No console da AWS, verifique em *Services > EC2 > Instances* a cada minuto. Você irá ver as novas instâncias com o seu nome serem criadas.
 
+Parabéns! Você acabou de automatizar o serviço de scaling!
 
-Congratulations! You have an automated scaling service!
 
 ## Infrastructure as code
 
-Now that you've done everything to make a self-healing scaling group, it's time for you to deploy it all as code. Infrastructure-as-code is an important idea within DevOps - this makes sure that your infrastructure is repeatable, and is easy to collaborate on.
+Agora que você fez tudo para construir um *scaling group*, está na hora de implantar tudo isso como código. Infrastructure-as-code é um conceito muito importante para DevOps - isso assegura que sua infraestrutura é replicável e colaborativa.
 
-### 24.) Download the Cloudformation template
+### 24.) Download o Cloudformation template
 
-Download the cloudformation template [here](https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/devopsgirls-wordpress.yaml). You can open it with your text editor (Notepad, or something similar).
 
-### 25.) Read through the template
+Download o cloudformation template [here](https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/devopsgirls-wordpress.yaml). Você pode abri-lo com o seu editor de texto (Notepad, gedit etc).
 
-What you're going to notice is that everything you've made is basically declared line by line if you scroll down. I know it looks intimidating, but don't worry! This is just a declaration of what things you want build.
+### 25.) Observe o template
 
-### 26.) Go to the Cloudformation section
+Perceba que tudo que você fez pode ser declarado linha por linha no documento. Eu sei que parece confuso, mas não se preocupe! É só a declaração de coisa que você quer construir.
 
-Go to **Services > Cloudformation**. Click on **Create Stack**.
+### 26.) Vá para a sessao de Cloudformation
 
-This will point you to a page where you can upload your template file. Click on **Next**.
+Vá em *Services > Cloudformation*. Clique em *Create Stack*.
+
+Isso irá te levar apra uma página onde você pode fazer upload do seu arquivo de template. Clique em *Next*.
 
 ![Image][3-1-19-upload]
 
 
-### 27.) Set the Stack Name and Parameters
+### 27.) Defina o Stack Name e os parâmetros
 
-Set the `DevopsGirlsUser` parameter. Use your `firstname.lastname` format for this.
+Defina o parâmetro `DevopsGirlsUser`. Utilize o seu `primeironome.ultimonome` para isso. 
 
-Change `WordpressS3Bucket` to the name of your S3 bucket name - for example `devopsgirls-training-2` or `devopsgirls-training-3` depending on which account you were setup in.
+Altere `WordpressS3Bucket` para o nome do seu bucket do S3 - por exemplo: `devopsgirls-training-2` ou `devopsgirls-training-3` dependendo da sua conta. 
 
-### 28.) Review, and click on IAM resources
+### 28.) Revise e clique em IAM resources
 
-Click through the rest of the dialogs until you get to the **Review** section. On the text box at the bottom that says "*I acknowledge that AWS CloudFormation might create IAM resources*", tick the boxes.
+Clique nas demais caixas de diálogo até que você chegará na sessão *Review*. Na próxima caixa de texto onde diz "*I acknowledge that AWS CloudFormation might create IAM resources*", marque as caixas.
+
 
 ![Image][3-1-20-iam]
 
-Click on *Create*.
+Clique em *Create*.
 
-### 29.) See your stack get created
+### 29.) Observe o seu stack ser criado
 
-Go to **Services > Cloudformation** and look for the stack name you set earlier. On the dialog box at the bottom, click on *Events*. Refresh it every now and then - and watch as your environment gets created!
+Vá em *Services > Cloudformation* e procure pelo nome do stack que você definiu anteriormente. Embaixo, na caixa de diálogo clique em *Events*. Recarregue a página de tempos em tempos e observe o seu ambiente ser criado!
 
-
-Congratulations! Now you've deployed things with code!
+Parabéns! Você acabou de implantar todo o ambiente utilizando código!
 
 
 [3-1-10-subnets]: https://raw.githubusercontent.com/DevOpsGirls/devopsgirls-bootcamp/master/images/3-1-ASG/3-1-10-subnets.png
