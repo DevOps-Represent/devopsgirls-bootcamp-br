@@ -1,29 +1,34 @@
-## SSH Login to your EC2 instance
+## Acesso SSH à sua instância EC2
 
-### 1) Find your EC2 instance's Public IP
-In AWS Click on EC2
+### 1) Anote o endereço de IP público (*Public IP*) da sua instância EC2
 
-Go to the Running Instances
+No console Web da AWS clique em EC2
 
-Find  and select your EC2 instance
+Vá em *Running Instances*
 
-Copy your EC2 instance's IPv4 Public IP
+Localize e selecione a sua instância EC2
 
-### 2) Change your .pem key's mode to 'read-only'
-Open your terminal
+Anote o endereço de IP IPv4 público (*Public IP*) da instância. 
 
-Go to your downloaded .pem key file and change the file’s mode to read-only
 
-Run command in bash (assuming you’ve saved it in downloads):
+### 2) Altere o modo do arquivo .pem para 'read-only' (somente leitura)
 
-`$chmod 400 ~/Downloads/keyname.pem`
+Abra o seu terminal
 
-Example
-$chmod 400 ~/Downloads/leorentanyag.pem 
+Vá ao diretório onde se encontra o seu arquivo .pem e altere-o para 'read-only'
+
+Execute o seguinte comando no terminal (assumindo que você salvou o arquivo em *Downloads*):
+
+
+`$chmod 400 ~/Downloads/nomedachave.pem`
+
+Exemplo:
+
+`$chmod 400 ~/Downloads/leorentanyag.pem` 
  
-### 3) SSH into your instance using your pem key
+### 3) Acesso SSH na sua instância usando o seu arquivo .pem
 
-`ssh -i ~/Downloads/<keyname.pem> ec2-user@<IPv4 Public IP adres>`
+`ssh -i ~/Downloads/<keyname.pem> ec2-user@<IPv4 Public IP adress>`
 
-Example:
-ssh -i ~/Downloads/leorentanyag.pem ec2-user@13.55.214.58
+Exemplo:
+`ssh -i ~/Downloads/leorentanyag.pem ec2-user@13.55.214.58`

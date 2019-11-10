@@ -1,50 +1,52 @@
-# SSH access from Mac
+# Acesso SSH via Mac
 
-### 1.) Open up your Terminal client
+### 1.) Abra o seu terminal
 
-Open up **Finder**. Go to **Applications** > **Utilities**, then open up the app called **Terminal**
+Abra o **Finder**. Vá para **Application** > **Utilities** e depois abra o app chamado **Terminal**
 
-### 2.) Verify where your Key Pair is
+### 2.) Verifique onde se encontra o seu par de chaves
 
-By default, your Key Pair should be in your *Downloads* directory. Verify that it's there by pasting the following command:
+Por padrão, seu par de chaves fica localizado na pasta *Downloads*. Confirme se ele se encontra lá, executando o seguinte comando:
 
 ```
-ls ~/Downloads/[MY KEYPAIR NAME].pem
+ls ~/Downloads/[NOME DO MEU KEYPAIR].pem
 ```
 
-Make sure you replace *[MY KEYPAIR NAME]* with the name you gave your keypair. For example, if I made a Key Pair called `banana-smith-keypair`, then my command should look like this:
+Certifique-se de substituir *[NOME DO MEU KEYPAIR]* pelo nome que você deu ao seu par de chaves. Por exemplo, se eu gerei um par de chaves chamado `banana-smith-keypair`, então o comando que irei executar será: 
 
 ```
 ls ~/Downloads/banana-smith-keypair.pem
 ```
 
-### 3.) Change the ownership of the key pair file.
+### 3.) Altere o dono do arquivo
 
-Remember: this keypair is your way of logging into your instance! Therefore, it needs to be accessible only by you. We do this by executing the following command:
+Lembre-se: este arquivo é necessário para que você consiga fazer login na sua instância! Portanto, ele precisa estar acessível somente por você. Nós iremos fazer isso executando o seguinte comando:
 
 ```
-chmod 600 ~/Downloads/[MY KEYPAIR NAME].pem
+chmod 600 ~/Downloads/[NOME DO MEU KEYPAIR].pem
 ```
 
-Again, you need to make sure that you replace *[MY KEYPAIR NAME]* with your Key Pair's name. So for `banana-smith-keypair`, we would paste:
+Novamente, você precisa substituir *[NOME DO MEU KEYPAIR]* pelo nome que você deu ao arquivo. Portanto, para `banana-smith-keypair`, o comando será:
 
 ```
 chmod 600 ~/Downloads/banana-smith-keypair.pem
 ```
 
-### 4.) Copy your instance IP or URL 
+### 4.) Copie o IP ou URL da sua instância
 
-Remember how we made a note of the *Public IP* of your EC2 instance? Now we need to use it. Essentially, what we want to do is to login to the IP of the instance using the Key Pair we created. Put it in your clipboard, or make a note of it in Notepad.
+Lembra de quando anotamos o *Public IP* da sua instância EC2? Agora nós iremos usá-lo. Basicamente nós iremos conectar ao IP da instância usando o arquivo contendo o par de chaves que nós criamos. Copie para a sua área de transferência ou anote em algum lugar, por exemplo Notepad.
+
 
 ### 5.) Login!
 
-Finally, we login to the instance. We do this with a command that looks like this:
+E finalmente, nós iremos conectar na instância. Nós faremos isso ao executar o seguinte comando:
 
 ```
-ssh ec2-user@[MY IP ADDRESS] -i ~/Downloads/[MY KEYPAIR NAME].pem
+ssh ec2-user@[MY IP ADDRESS] -i ~/Downloads/[NOME DO MEU KEYPAIR].pem
 ```
 
-Assuming we have a *Public IP* of `22.22.22.22`, and we have a Key Pair called `banana-smith-keypair`, your command would look like this:
+Assumindo que temos um *Public IP* com valor `22.22.22.22` e um par de chaves chamado `banana-smith-keypair`,o comando deverá ser:
+
 
 ```
 ssh ec2-user@22.22.22.22 -i ~/Downloads/banana-smith-keypair.pem

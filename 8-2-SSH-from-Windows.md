@@ -1,51 +1,57 @@
-# SSH access from Windows 
+# Acesso SSH via Windows
 
-Unfortunately, the best SSH client for Windows also requires its own format. So the Windows steps will have two parts: A.) Generating the key, and B.) Using the key
+Infelismente, o melhor client SSH para Windows requer um formato próprio. Então para acesso via Windows temos 2 passos:
 
-## Generate the key
+A.) Gerar a chave
 
-### 1.) Go to the Putty webpage
+B.) Usar a chave
 
-Open up your browser and go to: http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+## Gerar a chave
+
+### 1.) Vá a página de download do PuTTY
+
+Abra o seguinte link no seu navegador: http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 
 ### 2.) Download PuTTY
 
-Right-click and *Save As* the links for the latest installer. As of time of writing, it's **putty-0.67-installer.msi**
+Clique com o botão direito no link da última instalação mais recente e selecione *Save As*. No momento em que este curso estava sendo escrito a última versão era  **putty-0.67-installer.msi**.
 
-### 3.) Run the installer
+### 3.) Execute o instalador
 
-Execute the MSI file, and go through the installation. It should install a couple of programs, but we only need two: *PuTTY* and *PuTTYGen*
+Execute o arquivo MSI e inicie a instalação. Vários programas serão instalados mas nós só precisamos de 2: *PuTTY* e *PuTTYGen*.
 
-### 4.) Start PuTTYGen
+### 4.) Inicie o PuTTYGen
 
-From the *Start* menu, choose **All Programs > PuTTY > PuTTYGen**.
+A partir do menu *Start*, escolha **All Programs > PuTTY > PuTTYGen**
 
-Under **Type of key to generate**, select **SSH-2 RSA**.
-
-### 5.) Load your Key Pair
-
-Click on **Load**. By default, PuTTYgen displays only files with the extension `.ppk`. To locate your .pem file, select the option to display *All Files*. 
-
-Go to the directory where you downloaded your Key Pair, open the file, and click on *Open*.
-
-### 6.) Save your private key
-
-Choose **Save private key** to save the key in the format that PuTTY can use. PuTTYgen displays a warning about saving the key without a passphrase. Choose *Yes*.
-
-### 7.) Name your key
-
-Specify the same name for the key that you used for the key pair (for example, `banana-smith-keypair`)
+Em **Type of key to generate**, selecione **SSH-2 RSA**.
 
 
-## Logging in
+### 5.) Carreque o seu par de chaves
 
-### 1.) Start PuTTY 
+Clique em **Load**. Por padrão, PuTTYGen mostra somente arquivos com extensão `.ppk`. Para localizar o seu arquivo .pem, selecione a opção *All Files*.
 
-From the Start menu, choose **All Programs > PuTTY > PuTTY**
 
-### 2.) Set your login
+Vá até o diretório onde você baixou o seu par de chaves, abra o arquivo e clique em *Open*.
 
-In the *Category* pane, select **Session** and complete the following fields:
+### 6.) Salve a sua chave privada
+
+Escolha **Save private key** par salvar a sua chave privada em um formato que o PuTTY consiga usar. PuTTYGen irá mostrar um alerta pois a chave não tem uma senha. Escolha *Yes*.
+
+### 7.) Nomeie a sua chave
+
+Especifíque o mesmo nome que você deu para o seu par de chaves (por exemplo, `banana-smith-keypair`)
+
+
+## Acesse a instância
+
+### 1.) Inicie o PuTTY 
+
+A partir do menu inicial do Windows, escolha **All Programs > PuTTY > PuTTY**
+
+### 2.) Configure o seu login
+
+No painel *Category*, selecione **Session** e preencha os seguintes campos:
 
 
 ```
@@ -54,7 +60,7 @@ In the *Category* pane, select **Session** and complete the following fields:
  Connection type: SSH
 ```
 
-Make sure you replace *[PUBLIC IP]* with the *Public IP* of your EC2 instance. For example: 
+Certifique-se de substituir *[PUBLIC IP]* pelo *Public IP* da sua instância EC2. Por exemplo:
 
 ```
  Host: ec2-user@22.33.44.55
@@ -63,18 +69,17 @@ Make sure you replace *[PUBLIC IP]* with the *Public IP* of your EC2 instance. F
 ```
 
 
-### 3.) Select your key file
+### 3.) Selecione o seu arquivo com a chave
 
-In the *Category* pane, expand **Connection**, expand **SSH**, and then select **Auth**.
+No painel *Category*, expanda **Connection**, expanda **SSH** e então selecione **Auth**.
 
-Click on **Browse**. Select the `.ppk` file that you generated for your key pair, and then choose **Open**.
+Clique em **Browse**. Selecione o arquivo `.ppk` que você gerou para o seu par de chaves e então selecione **Open**.  
 
-### 4.) Save your session
 
-In the *Category* pane, select **Session**. Enter a name for the session under **Saved Sessions**.
+### 4.) Salve a sua sessão
 
-Choose **Save**.
+No painel *Category*, selecione **Session**. Em **Saved Sessions**, insira um nome para a sua sessão. Selecione **Save**.
 
 ### 5.) Login!
 
-Finally, that's all done. Click on **Open** to start the SSH session - it will display a security alert that you can safely ignore (at least for this session).
+E finalmente, está tudo pronto. Clique em **Open** para iniciar sua conexão SSH - um alerta de segurança será exibido na sua tela mas você pode ignorá-lo sem problemas (para essa sessão).
