@@ -12,11 +12,11 @@ In this repository are the slides and content for DevOpsGirls Bootcamp modules.
 Nosso bootcamp é composto pror três mídulos primários com módulos adicionais disponíveis para quem quiser aprender um pouco mais.
 
 
-1.) [O quê são as instâncias EC2?](https://github.com/DevOpsGirls/devopsgirls-bootcamp-br/blob/master/1-1-EC2.md)
+1.) [O quê são as instâncias EC2?](https://github.com/DevOps-Girls/devopsgirls-bootcamp-br/blob/master/1-1-EC2.md)
 
-2.) [O quê é um ELB?](https://github.com/DevOpsGirls/devopsgirls-bootcamp-br/blob/master/2-1-ELB.md)
+2.) [O quê é um ELB?](https://github.com/DevOps-Girls/devopsgirls-bootcamp-br/blob/master/2-1-ELB.md)
 
-3.) [Como posso automatizar com os Auto Scaling Groups?](https://github.com/DevOpsGirls/devopsgirls-bootcamp-br/blob/master/3-1-ASG.md)
+3.) [Como posso automatizar com os Auto Scaling Groups?](https://github.com/DevOps-Girls/devopsgirls-bootcamp-br/blob/master/3-1-ASG.md)
 
 Cada um dos módulos representa uma melhora continua em ujm blog - um blog onde você pode logaree postar. Em cada módulo, estamos fazendo o blog cada vez mais automatizado, resiliente e resistente à falhas.
 
@@ -27,4 +27,3 @@ Boa sorte!
 ## Quero contribuir com o DevOps Girls. Como posso ajudar?
 
 Os módulos são gratuitos para qualquer pessoa que queira usar - e se você quiser criar o seu próprio e adicionar ao repositório, dê uma olhada nas nossas [regras de contribuição](/CONTRIBUTING.md).
-
