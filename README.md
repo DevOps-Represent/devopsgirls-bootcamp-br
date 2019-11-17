@@ -4,24 +4,27 @@
 
 ![DevOps Girls](/images/devopsgirls.jpg)
 
+Neste repositório estão os slides e conteúdo para os múdulos do Bootcamp da DevopsGirls.
 In this repository are the slides and content for DevOpsGirls Bootcamp modules.
 
-## Practicals
+## Atividades Práticas
 
-DevOpsGirls Bootcamp is composed of three primary modules with an additional modules available for those looking to take on a bit more.
+Nosso bootcamp é composto pror três mídulos primários com módulos adicionais disponíveis para quem quiser aprender um pouco mais.
 
-1.) [What are EC2 instances?](https://github.com/DevOpsGirls/devopsgirls-bootcamp/blob/master/1-1-EC2.md)
 
-2.) [What is an ELB?](https://github.com/DevOpsGirls/devopsgirls-bootcamp/blob/master/2-1-ELB.md)
+1.) [O quê são as instâncias EC2?](https://github.com/DevOpsGirls/devopsgirls-bootcamp-br/blob/master/1-1-EC2.md)
 
-3.) [How do I automate this with Auto Scaling Groups?](https://github.com/DevOpsGirls/devopsgirls-bootcamp/blob/master/3-1-ASG.md)
+2.) [O quê é um ELB?](https://github.com/DevOpsGirls/devopsgirls-bootcamp-br/blob/master/2-1-ELB.md)
 
-Each of the modules represents a continuing improvement on a blog website - a blog that you can login to, and post things in. With each module, we're making the blog more automated, more resilient, and more durable to issues.
+3.) [Como posso automatizar com os Auto Scaling Groups?](https://github.com/DevOpsGirls/devopsgirls-bootcamp-br/blob/master/3-1-ASG.md)
 
-If you run into anything, just give your coaches a shout - we'll be happy to help you.
+Cada um dos módulos representa uma melhora continua em ujm blog - um blog onde você pode logaree postar. Em cada módulo, estamos fazendo o blog cada vez mais automatizado, resiliente e resistente à falhas.
 
-Good luck!
+Se você encontrar algum problema, avise uma de nossas mentoras - estaremos felizes em ajudar você.
 
-## I want to contribute to DevOps Girls. How can I help?
+Boa sorte!
 
-The modules are free for anyone to use - and if you want to create your own and add it to the repository, feel free to check out our [contribution guidelines](/CONTRIBUTING.md)
+## Quero contribuir com o DevOps Girls. Como posso ajudar?
+
+Os módulos são gratuitos para qualquer pessoa que queira usar - e se você quiser criar o seu próprio e adicionar ao repositório, dê uma olhada nas nossas [regras de contribuição](/CONTRIBUTING.md).
+
