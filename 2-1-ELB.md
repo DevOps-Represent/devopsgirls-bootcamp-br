@@ -1,125 +1,127 @@
-# Load Balancing and High Availability.
+# Load Balancing e Alta disponibilidade.
 
-## Key Concepts
+## Conceitos
 
-Before we get started, here's a couple of loose concepts:
+Antes de começarmos, vamos passar por alguns conceitos básicos:
 
- - Load Balancers forward your traffic to one or more service providers. What this essentially means is that you can have multiple EC2 instances serving the same kind of content, being represented as one service.
+ - Balanceadores de carga (Load Balancers) encaminham o tráfego para um ou mais provedores de serviço. Isso significa que você pode ter diversas  instâncias EC2 servindo o mesmo tipo de conteúdo, sendo representadas por um único serviço.
 
- - High Availability means making it so that your system remains operational for a desirably long length of time. This means making it more durable to system failures - having failovers, in this case.
+ - Alta disponibilidade é o fato do seu sistema permanecer operacional por um longo período de tempo. Isso significa que o seu sistema é mais resiliente a falhas.
 
- - Service Separation refers to making sure that if you have multiple systems dependent on each other, that they exist separately and share fewer failure modes.
+ - Separação de serviços refere-se a garantir que, se você tiver multiplos sistemas dependentes uns dos outros, eles existam separadamente e compartilhem menos modos de falha.
 
+ - Artefatos sao subprodutos tangíveis do desenvolvimento dos nossos sistemas. No nosso exemplo, nosso artefato será o pacote Wordpress modificado.
  - Artifacts are tangible byproducts of our systems development. In this case, our artifact will be the modified Wordpress package that's special to only you.
 
-Now that that's out of the way, let's get started!
+Agora vamos começar!
 
-## What we're going to do
+## O que vamos fazer
 
-In this practical session, we will:
+Nesse exercício prático nós iremos:
 
- - Create an Elastic Load Balancer
- - Reinstall Wordpress, but using an external database
- - Create an Artifact of your modified Wordpress, then upload it to S3
- - Create another instance, using the artifact as a base
+ - Criar um Balanceador Elastic
+ - Reinstalar o Wordpress, porém usando um banco de dados externo
+ - Criar um artefato do seu Wordpress modificado e então enviá-lo para o S3
+ - Criar outra instância usando o artefato como base
 
 
-## Creating an Elastic Load Balancer
 
-### 1.) Create your load balancer
+## Criando um Elastic Load Balancer
 
-Go to Services > EC2, then look for "Load Balancers". Click on "Create Load Balancer"
+### 1.) Crie o balanceador de carga
+
+Vá à *Services* > *EC2* e então procure por *Load Balancers*. Clique em *Create Load Balancer*
 
 ![Image][2-1-1-create]
 
 
-### 2.) Select the type of load balancer
+### 2.) Selecione o tipo do balanceador
 
-In the next page, make sure you select *Classic Load Balancer*.
+Na próxima página, certifique-se de selecionar *Classic Load Balancer*.
 
 ![Image][2-1-2-classic]
 
 
-### 3.) Name your ELB
+### 3.) Nomeie o seu ELB
 
-Put *myname*-elb under *Load Balancer Name*. Under *Create ELB Inside*, select *My Default VPC*.
+Coloque *meu_nome*-elb em *Load Balancer Name* (substitua *meu_nome* po um nome a sua escolha). Em *Create ELB Inside*, selecione *My Default VPC*.
 
 ![Image][2-1-3-lbname]
 
 
-### 4.) Set your load balancing protocol
+### 4.) Configure o protocolo do balanceador
 
-We'll leave the listener configuration intact for the time being - but do click on "Load Balancer Protocol". You should see a couple of options - load balancers are powerful!
+Nesse caso, iremos deixar as configurações como estão - mas clique em *Load Balancer Protocol* e você verá algumas opções - balanceadores são muito poderosos!
 
 ![Image][2-1-4-listeners]
 
 
-### 5.) Create security groups for your ELB
+### 5.) Crie security groups para o ELB
 
-On the next page, choose the option "Create a new Security Group". Take note that it's similar to the security groups you made for your instance earlier - similar to a "firewall" where you can say what kind of traffic is allowed.
+Na próxima página, escolha a opção *Create a new Security Group*. Observe que é similar aos security groups que fizemos anteriormente - semelhante a um "firewall" no qual você pode configurar o tipo de tráfego que é permitido.
 
 ![Image][2-1-5-secgroups]
 
-We'll leave things default for now, except for "Source" - for which we'll choose "My IP".
+Nós deixaremos as configurações padrão por agora, exceto o campo "Source", no qual você deve escolher "My IP".
 
-### 6.) Skip the next page, as we have no SSL settings.
+### 6.) Pule a próxima página pois não temos configuração de SSL
 
-### 7.) Configure your health checks
+### 7.) Configure os health checks
 
-On the next page, we'll be configuring our *health checks*. Health checks essentially verify if the instance is "healthy" - if it's accepting traffic, or it's not receiving errors. Have a look at the tooltips for each of the options.
+Na próxima página, nós iremos configurar os *health checks*. Health checks verificam se a instância está "saudável", ou seja, se está aceitando tráfego ou se não está recebendo erros. Observe as dicas dadas em cada uma das opções.
+
 
 ![Image][2-1-6-healthchecks]
 
-
-For now, we'll choose *TCP* as the Ping Protocol, using *80* as the Ping Port. What this is saying, is that the Load Balancer will check port 80 of any attached instances, and mark it as "healthy" if it responds without errors.
-
+Agora iremos escolher *TCP* como protocolo Ping, usando a porta *80*. Isso significa que o balanceador irá checar a porta 80 de cada uma das instâncias e marcá-la como "saudável" se estas responderem de forma correta, sem erros.
 
 
-### 8.) Set the instances to forward to
+### 8.) Configure as instâncias para encaminhar tráfego
 
-On the instances page, we'll select the instance that you created in the previous module. This essentially means that we'll be forwarding any traffic that hits the load balancer to your instance.
+Na página de instâncias, selecione a instância que você criou no módulo anterior. Isso irá habilitar o encaminhamento de qualquer tráfego que chegar ao seu balanceador para a sua instância.
+
 
 ![Image][2-1-7-instances]
 
 
-### 9.) Add tags
+### 9.) Adicione tags
 
-As usual, tags. We'll put a Key of *Name* and a Value of *myname*-elb.
+Como de costume, vamos adicionar uma tag. Ponha uma chave chamada *Name* e associe um valor *meu_nome*-elb (substitua *meu_nome* por um nome de sua escolha).
 
 ![Image][2-1-8-tags]
 
 
-### 10.) Finish up!
+### 10.) Finalizando!
 
-Review all the settings you've had, then click *Create*
+Revise todas as configurações e clique em *Create*.
 
 ![Image][2-1-9-review]
 
 
-### 11.) See your ELB details
+### 11.) Veja os detalhes do ELB
 
-Click on the link that goes to your ELB. As with the instance, you'll see a pane that details the properties of your ELB. Make note of the *DNS Name*, marked below.
+Clique no link que redireciona para o seu ELB. Assim como na instância, você verá um painel com as propriedades do seu ELB. Anote o *DNS Name*, usaremos depois.
+
 
 ![Image][2-1-10-details]
 
 
+## Reinstale o Wordpress usando RDS
 
-## Reinstall Wordpress using RDS
+Como o Wordpress mantem os dados de URLs no banco de dados, nós precisamos reinstalá-lo. Se sua sessao SSH ainda estiver ativa então prossiga - caso contrário, inicie uma sessão SSH (se precisar revisite as instruções aqui).
 
-Because Wordpress keeps its URL data in the database, we'll need to reset your Wordpress installation. If your SSH session is still open then you're good to go - otherwise, go to the SSH instructions here.
+### 12.) Resete a configuração do Wordpress
 
-### 12.) Reset Wordpress Config
-
-Using your Terminal or Putty, go to the Wordpress directory, then remove the wp-config.php file:
+Usando o seu terminal ou Putty, vá até o diretório do Wordpress e então remova o arquivo *wp-config.php*:
 
 ```
 cd /var/www/html/
 sudo rm wp-config.php
 ```
 
-### 13.) Reconfigure Wordpress database
+### 13.) Reconfigure o banco de dados do Wordpress
 
-Now, open your browser and paste the *DNS Name* that you had in Step 11. This should show you an installation page. Proceed with the installation, but when you get to the panel that asks you for your database details, put in the following:
+Agora abra o seu navegador e cole o *DNS Name* que você anotou no passo 11. Você irá ver uma página de instalação. Prossiga com a instalação, mas quando aparecer um painel para inserção dos detalhes do banco de dados insira os seguintes valores:
 
 ```
 Database Name: devopsgirlsdb
@@ -129,153 +131,151 @@ Database Host: rds.devopsgirls.internal
 Database Prefix: firstname_
 ```
 
-It should look like this:
+Exemplo:
 
 ![Image][2-1-11-wpsql]
 
 
-Make sure you replace 'firstname_' with your first name. For example, 'Banana Smith' would have the database prefix of 'banana'.
+Certifique-se de substituir 'firstname_' pelo seu primeiro nome. Por exemplo, 'Banana Smith' deve colocar 'banana_'.
 
-### 14.) Finish the installation
 
-Finish the install, until it forwards you to the Blog Post page. Now that things are ready, we can start rolling our Wordpress artifact.
+### 14.) Finalizando a instalação
 
-## Creating the artifact
+Finalize a instalação, até que você chegará a uma página de Blog. Agora que o Wordpress está funcionando nós podemos criar o nosso artefato.
 
-### 15.) Create a copy of your Wordpress directory
+## Criando o artefato
 
-If the installation went well, then you're going to want to create a copy of your installed Wordpress directory, so you won't have to run the install again. We do this via the Terminal or Putty application. We're going to use the following commands:
+### 15.) Crie uma cópia do diretório do Wordpress
+
+Se a instalação ocorreu bem, então você irá criar uma cópia do seu diretório de configuração, dessa forma não precisaremos reinstalá-lo e seguir todo o processo anterior novamente. Nós podemos fazer isso via terminal ou utilizando Putty. Execute os seguintes comandos:
+
 
 ```
 cd /var/www/html/
-sudo tar cvfz ~/firstname.lastname-wordpress.tgz .
+sudo tar cvfz ~/primeironome.ultimonome-wordpress.tgz .
 ```
 
-With this command, changing directories to */var/www/html* - where Wordpress is installed. Then, we create a compressed tar file - firstname.lastname-wordpress.tgz - containing the contents of our current directory (.)
-
-### 16.) Upload the file to S3
-
-S3 is an object store - essentially allowing you to upload files to a directory that you can share either within the account, or to the world. We do this by running the following commands - one to set the maximum size of the upload, and one to *copy* the file to S3 ( *s3 cp* ).
+Altere os valores *primeironome* e *ultimonome* com os seus dados.
+*cd /var/www/html* altera o diretório atual para */var/www/html* - Onde está instalado o Wordpress. Então, na segunda linha, criamos um arquivo comprimido *tar* - primeironome.ultimonome-wordpress.tgz - contendo todos os arquivos e pastas dentro do diretório atual.
 
 
-```
-aws configure set default.s3.multipart_threshold 64MB
-aws s3 cp ~/firstname.lastname-wordpress.tgz s3://devopsgirls-training/firstname.lastname-wordpress.tgz --no-sign-request
-```
+### 16.) Envie o arquivo para o S3
 
-Depending on the AWS login that you used ( `devopsgirls`, `devopsgirls-2`, or `devopsgirls-3`, you may need to change the S3 bucket to upload to. `devopsgirls` accounts need to use `devopsgirls-training`, `devopsgirls-2` accounts need to use `devopsgirls-training-2`, and `devopsgirls-3` accounts need to use `devopsgirls-training-3`. For example, for a `devopsgirls-2` account:
+S3 é um serviço de armazenamento de objetos - basicamente permite que você armazene arquivos para um diretório e você pode compartilhá-lo tanto com a sua conta (privado) ou com o mundo (público). Nós faremos isso executando os seguintes comandos - um para configurar o tamanho máximo de upload, e outro para de fato copiar o arquivo para o S3 (*s3 cp*).
+
 
 ```
 aws configure set default.s3.multipart_threshold 64MB
-aws s3 cp ~/firstname.lastname-wordpress.tgz s3://devopsgirls-training-2/firstname.lastname-wordpress.tgz --no-sign-request
+aws s3 cp ~/firstname.lastname-wordpress.tgz s3://devopsgirls-training-br-coaches/firstname.lastname-wordpress.tgz --no-sign-request
 ```
 
-### 17.) Confirm the file exists using the web console:
+### 17.) Confirme se o arquivo existe usando o console web:
 
-Go to *Services > S3*. Click on the bucket called *devopsgirls-training*. If you uploaded your file correctly, then it should be there!
+No navegador, vá em *Services > S3*. Clique no bucket chamado *devopsgirls-training-br-coaches*. Se tudo ocorreu bem, o seu arquivo deve aparecer aqui!
 
 ![Image][2-1-12-s3]
 
 
-## Create a second instance
+## Crie uma segunda instância
 
-So: now we have a Load Balancer, and an Artifact. What we can do now is make it so that you have multiple instances, so that your service can still be up if one of the instances is down.
+Recaptulando: Nós temos agora um balanceador e um artefato. Agora nós queremos ter múltiplas instâncias para que o nosso serviço continue rodando caso uma das instâncias caia.
 
-### 18.) Create a second instance
+### 18.) Crie a segunda instância
 
-Go to *Services > EC2* in the web console. As with the first module, we're creating another instance. Click on Launch Instance.
+Vá em *Services > EC2* através do console web. Como no primeiro módulo, nós vamos criar uma nova instância. Clique em *Launch Instance*.
+
 
 ![Image][2-1-13-launchinstance]
 
 
-### 19.) Set instance details
+### 19.) Insira os detalhes da instância
 
-On Step 1, choose the *Amazon Linux AMI*. On the Instance Type, select *t2.micro*.
+No passo 1, escolha *Amazon Linux AMI*. Em *Instance Type*, selectione *t2.micro*.
 
 ![Image][2-1-14-ami]
 
 
-### 20.) Set User Data
+### 20.) Insira o *User Data*
 
-You can think of *User Data* as scripts that you can run for your EC2 instance when it launches. We can use User Data to declare what we want to do - in this case, we're declaring the same commands that we used to install Wordpress the first time - except you don't have to login and do it manually anymore.
+Você pode pensar em *User Data* como scripts que você quer que rode quando sua instância EC2 inicia. Nós podemos usar User Data para declarar o que nós queremos fazer - nesse caso, vamos declarar os mesmos comandos que usamos quando instalamos o Wordpress pela primeira vez - exceto pelo fato de que não precisamos fazer login e rodar manualmente.
 
-On the *Advanced Details* tab of *Step 3: Configure Instance Details*, paste the following into the *User Data* box:
+Na aba *Advanced Details* em *Step 3: Configure Instance Details*, cole os seguintes comandos abaixo em *User Data*:
 
 ```
 #!/bin/bash
 yum install -y mysql php php-mysql httpd
 aws configure set default.s3.multipart_threshold 64MB
-aws s3 cp s3://devopsgirls-training/firstname.lastname-wordpress.tgz /var/www/wordpress.tgz --no-sign-request
+aws s3 cp s3://devopsgirls-training-br-coaches/primeironome.ultimonome-wordpress.tgz /var/www/wordpress.tgz --no-sign-request
 tar xvfz /var/www/wordpress.tgz -C /var/www/html/
 chown -R apache /var/www/html/
 service httpd start
 ```
 
-Again, make sure that you change the S3 bucket name (`devopsgirls-training`, `devopsgirls-training-2`, or `devopsgirls-training-3`). Your configuration should look like this:
+Lembrando que você deve substituir primeironome.ultimonome pelos seus dados (o mesmo que você colocou anteriormente). Sua configuração deve estar como na imagem abaixo:
 
 ![Image][2-1-15-userdata]
 
 
-### 21.) Continue the instance configuration
+### 21.) Continue a configuração da instância
 
-For the rest of the instance configuration, specify the following:
+Para o resto da configuração da instância, especifique o seguinte:
 
 ```
  - Storage: Defaults
  - Tags:
      Key:Name
-     Value: myname-wordpress2
+     Value: meunome-wordpress2
 ```
 
 ![Image][2-1-16-tags]
 
 
-### 22.) Change the security group configuration
+### 22.) Modifique a configuração de security group
 
-Because your instance is only supposed to be accepting traffic from your Load Balancer, you can now specify your load balancer as a source. This means that you're making your instances more secure by narrowing down the kind of traffic it can receive.
+Como sua instância deve receber trágego somente do seu balanceador, você pode especificar o seu balanceador como origem. Isso fará com que sua instância seja mais segura reduzindo o tipo de tráfego que ela pode receber.
 
-Additionally, you no longer need to specify SSH access - because all the configuration is done via your User Data. For your security group configuration, choose *Create a new security group* and specify the following:
+Adicionalmente, você não precisa mais especificar o acesso SSH porque todas as configurações foram feitas através do seu User Data. Para a configuração de security group, escolha *Create a new security group* e especifique o seguinte:
 
 ```
  -  Type: HTTP
  -  Source: your ELB
 ```
 
-It should look like this:
+Deve ficar assim:
 
 ![Image][2-1-17-elbsg]
 
 
-### 23.) Launch your instance and go to Load Balancers
+### 23.) Inicie sua instância e vá a página de Load Balancers
 
-Click on *Launch instance* to launch your instance. Now, go back to the Load Balancer section ( *Services > EC2 > Load Balancers* ). Select the Load Balancer you created prior, then click on *Instances* on the lower pane.
+Clique em *Launch instance* para iniciar a sua instância. Agora, volte para a sessão de Balanceadores ( *Services > EC2 > Load Balancers* ). Selecione o balanceador que você criou anteriormente e clique em *Instances* no painel inferior.
 
 ![Image][2-1-18-instances]
 
 
-### 24.) Add your new instance to the Load Balancer
+### 24.) Adicione a sua nova instância no balanceador
 
-Click on *Edit Instances*,  then add the new instance you just created (myname-wordpress-2). Click on *Save*.
+Clique em *Edit Instances* e adicione a nova instância que você acabou de criar (meunome-wordpress-2). Clique em *Save*.
 
 ![Image][2-1-19-addinstance]
 
 
-### 25.) Check that everything is working perfectly
+### 25.) Confira se tudo está funcionando corretamente
 
-Go to the *Description* tab of your load balancer. If everything worked well, it should say "*2 of 2 instances in service*". You can test this by:
+Vá na aba *Description* do seu balanceador. Se tudo ocorreu bem, deve aparecer "*2 of 2 instances in service*". Voce pode testar da seguinte forma:
 
- - Refresh your browser with the Wordpress window open
+ - Recarregue a página do Wordpress no seu navegador
 
- - In the AWS console (Services > EC2), right click on one of your instances and select *Stop Instance*.
+ - No console AWS (*Services > EC2*), clique com o botão direito em uma das suas instâncias e selecione *Stop Instance*.
 
- - If everything worked well, then your site should still be up even if you refresh your browser.
+ - Se tudo ocorreu bem, você deve continuar conseguindo acessar o seu site ao recarregar a página.
 
-### 26.) And, done!
+### 26.) E... Pronto!
 
 ![Image][2-1-20-blog]
 
+Parabéns! Agora você tem um serviço com maior disponibilidade rodando!
 
-Congratulations! You now have a more durable service configuration.
 
 
 
