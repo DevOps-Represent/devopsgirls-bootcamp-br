@@ -9,8 +9,9 @@ In this repository are the slides and content for DevOpsGirls Bootcamp modules.
 
 ## Atividades Práticas
 
-Nosso bootcamp é composto pror três mídulos primários com módulos adicionais disponíveis para quem quiser aprender um pouco mais.
+Nosso bootcamp é composto pror três módulos primários com módulos adicionais disponíveis para quem quiser aprender um pouco mais.
 
+0.) [Criando sua conta na AWS](https://github.com/DevOps-Girls/devopsgirls-bootcamp-br/blob/master/0-1-AWS.md)
 
 1.) [O quê são as instâncias EC2?](https://github.com/DevOps-Girls/devopsgirls-bootcamp-br/blob/master/1-1-EC2.md)
 
