@@ -166,20 +166,12 @@ S3 é um serviço de armazenamento de objetos - basicamente permite que você ar
 
 ```
 aws configure set default.s3.multipart_threshold 64MB
-aws s3 cp ~/firstname.lastname-wordpress.tgz s3://devopsgirls-training/firstname.lastname-wordpress.tgz --no-sign-request
-```
-
-Dependendo do login AWS que você está usando ( `devopsgirls`, `devopsgirls-2`, or `devopsgirls-3`), você precisará mudar de bucket para conseguir enviar o arquivos. Contas `devopsgirls` precisam utilizar `devopsgirls-training`, Contas `devopsgirls-2` utilizam `devopsgirls-training-2`, e `devopsgirls-3` utilizam `devopsgirls-training-3`. O exemplo abaixo mostra o comando para o caso de uma conta `devopsgirls-2`:
-
-
-```
-aws configure set default.s3.multipart_threshold 64MB
-aws s3 cp ~/firstname.lastname-wordpress.tgz s3://devopsgirls-training-2/firstname.lastname-wordpress.tgz --no-sign-request
+aws s3 cp ~/firstname.lastname-wordpress.tgz s3://devopsgirls-training-br-coaches/firstname.lastname-wordpress.tgz --no-sign-request
 ```
 
 ### 17.) Confirme se o arquivo existe usando o console web:
 
-No navegador, vá em *Services > S3*. Clique no bucket chamado *devopsgirls-training*. Se tudo ocorreu bem, o seu arquivo deve aparecer aqui!
+No navegador, vá em *Services > S3*. Clique no bucket chamado *devopsgirls-training-br-coaches*. Se tudo ocorreu bem, o seu arquivo deve aparecer aqui!
 
 ![Image][2-1-12-s3]
 
@@ -213,13 +205,13 @@ Na aba *Advanced Details* em *Step 3: Configure Instance Details*, cole os segui
 #!/bin/bash
 yum install -y mysql php php-mysql httpd
 aws configure set default.s3.multipart_threshold 64MB
-aws s3 cp s3://devopsgirls-training/primeironome.ultimonome-wordpress.tgz /var/www/wordpress.tgz --no-sign-request
+aws s3 cp s3://devopsgirls-training-br-coaches/primeironome.ultimonome-wordpress.tgz /var/www/wordpress.tgz --no-sign-request
 tar xvfz /var/www/wordpress.tgz -C /var/www/html/
 chown -R apache /var/www/html/
 service httpd start
 ```
 
-Lembrando que você deve substituir primeironome.ultimonome pelos seus dados (o mesmo que você colocou anteriormente) e também definir corretamente o nome do bucket S3 de acordo com a sua conta (`devopsgirls-training`, `devopsgirls-training-2`, or `devopsgirls-training-3`). Sua configuração deve estar como na imagem abaixo:
+Lembrando que você deve substituir primeironome.ultimonome pelos seus dados (o mesmo que você colocou anteriormente). Sua configuração deve estar como na imagem abaixo:
 
 ![Image][2-1-15-userdata]
 
